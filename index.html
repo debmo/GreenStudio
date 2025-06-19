@@ -54,22 +54,22 @@
     <!-- Slideshow Section -->
     <div class="w-full flex justify-center py-4">
       <div class="relative w-[90%] md:w-[80%] rounded overflow-hidden shadow-lg">
-        <transition-group name="slide" tag="div" class="relative h-56 md:h-72">
-          <template v-for="(slide, index) in slides" :key="slide.src">
-            <img
-              v-if="slide.type === 'image' && currentSlide === index"
-              :src="slide.src"
-              class="absolute w-full h-full object-cover"
-              alt="Slideshow Image"
-            />
-            <video
-              v-else-if="slide.type === 'video' && currentSlide === index"
-              :src="slide.src"
-              class="absolute w-full h-full object-cover"
-              autoplay muted loop playsinline
-            ></video>
-          </template>
-        </transition-group>
+        <transition-group name="slide" tag="div" class="relative h-[18rem] md:h-[32rem]">
+  <template v-for="(slide, index) in slides" :key="slide.src">
+    <img
+      v-if="slide.type === 'image' && currentSlide === index"
+      :src="slide.src"
+      class="absolute w-full h-full object-contain"
+      alt="Slideshow Image"
+    />
+    <video
+      v-else-if="slide.type === 'video' && currentSlide === index"
+      :src="slide.src"
+      class="absolute w-full h-full object-contain"
+      autoplay muted loop playsinline
+    ></video>
+  </template>
+</transition-group>
 
         <img src="./images/w.png" alt="Logo" class="absolute bottom-2 left-2 w-20 h-auto opacity-50"/>
 
