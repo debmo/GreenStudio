@@ -20,7 +20,7 @@
       padding: 0;
       height: 100%;
       width: 100%;
-      background-image: url("./images/x.png");
+      background-image: url("./images/x.webp");
       background-size: cover;
       background-position: center;
       background-repeat: repeat;
@@ -71,7 +71,7 @@
   </template>
 </transition-group>
 
-        <img src="./images/w.png" alt="Logo" class="absolute bottom-2 left-2 w-20 h-auto opacity-50"/>
+        <img src="./images/w.webp" alt="Logo" class="absolute bottom-2 left-2 w-20 h-auto opacity-50"/>
 
         <button @click="prevSlide"
           class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full hover:bg-opacity-80">
@@ -188,8 +188,8 @@
         return {
           activeSection: null,
           slides: [
-            { type: 'image', src: "./images/g.png" },
-            { type: 'image', src: "./images/k.png" },
+            { type: 'image', src: "./images/g.webp" },
+            { type: 'image', src: "./images/k.webp" },
           ],
           currentSlide: 0
         };
