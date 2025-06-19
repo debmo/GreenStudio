@@ -9,185 +9,121 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Vue.js -->
   <script src="https://unpkg.com/vue@3"></script>
+  
+  <!-- Gradio Web Component -->
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/5.23.1/gradio.js"></script>
+
 
   <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    animation: fadeSlide 2s ease-in-out forwards, titleFade 6s ease-in-out infinite alternate;
-    background-image: url("./images/b.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: repeat;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-
-  body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* light black overlay */
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .animated-title {
-    animation: titleFade 3s ease-in-out infinite alternate;
-  }
-
-  .animated-heading {
-    animation: fadeSlide 2s ease-in-out forwards;
-  }
-
-  @keyframes titleFade {
-    0% {
-      color: #22c55e;
-      transform: scale(1);
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background-image: url("./images/x.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: repeat;
+      background-color: rgba(0, 0, 0, 0.4);
     }
-    100% {
-      color: #86efac;
-      transform: scale(1.05);
-    }
-  }
 
-  @keyframes fadeSlide {
-    from {
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 0.5s ease;
+    }
+    .fade-enter-from, .fade-leave-to {
       opacity: 0;
-      transform: translateY(-10px);
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    .slide-enter-active, .slide-leave-active {
+      transition: all 0.6s ease;
     }
-  }
-</style>
+    .slide-enter-from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    .slide-leave-to {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+ 
   </style>
 </head>
+
 <body id="app" class="text-white" v-cloak>
   <div class="flex flex-col items-center">
 
- <!-- Heading Table -->
-<div class="w-full text-center py-4">
-  <table class="mx-auto w-4/5 bg-opacity-10">
-    <tr>
-      <!-- Logo on the left -->
-      <td class="w-1/3 text-center align-middle">
-        <img src="./images/Green.png" alt="Green Studio Logo" class="w-24 md:w-32 mx-auto" />
-      </td>
+    <!-- Slideshow Section -->
+    <div class="w-full flex justify-center py-4">
+      <div class="relative w-[90%] md:w-[80%] rounded overflow-hidden shadow-lg">
 
-      <!-- Text on the right -->
-      <td class="w-2/3 text-left pl-4">
-        <div class="text-3xl md:text-4xl font-bold animated-title text-green-500">
-          Welcome to GreenStudio & kob ai
-        </div>
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
- <!-- Embed GreenStudio -->
-<title>GreenStudio</title>
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/5.23.1/gradio.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
+        <!-- Slideshow Images and Videos -->
+        <transition-group name="slide" tag="div" class="relative h-56 md:h-72">
+          <template v-for="(slide, index) in slides" :key="slide.src">
+            <img
+              v-if="slide.type === 'image' && currentSlide === index"
+              :src="slide.src"
+              class="absolute w-full h-full object-cover"
+              alt="Slideshow Image"
+            />
+            <video
+              v-else-if="slide.type === 'video' && currentSlide === index"
+              :src="slide.src"
+              class="absolute w-full h-full object-cover"
+              autoplay
+              muted
+              loop
+              playsinline
+            ></video>
+          </template>
+        </transition-group>
 
-<body class="bg-gray-100 min-h-screen p-4">
-  <h1 class="text-3xl font-bold text-center text-green-600 mb-6">GreenStudio Embedded</h1>
+        <!-- Logo bottom-left -->
+        <img
+          src="./images/w.png"
+          alt="Logo"
+          class="absolute bottom-2 left-2 w-20 h-auto opacity-50"
+        />
 
-  <!-- Green Launch Button -->
-  <div class="flex justify-center mb-4">
-    <button 
-      id="showEmbedBtn"
-      class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-200"
-    >
-      Launch kob ai Agent
-    </button>
-  </div>
+        <!-- Navigation Buttons -->
+        <button @click="prevSlide"
+          class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full hover:bg-opacity-80">
+          ‹
+        </button>
+        <button @click="nextSlide"
+          class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full hover:bg-opacity-80">
+          ›
+        </button>
+      </div>
+    </div>
 
-  <!-- Gradio App Embed -->
-  <div id="gradioEmbed" class="hidden flex justify-center">
-    <gradio-app src="https://greenstudio-kobai.hf.space"></gradio-app>
-  </div>
-
-  <script>
-    document.getElementById('showEmbedBtn').addEventListener('click', function () {
-      document.getElementById('gradioEmbed').classList.remove('hidden');
-      this.classList.add('hidden'); // Optionally hide button after click
-    });
-  </script>
- 
- <!-- Tony Table -->
+    <!-- Image Generation Table -->
 <div class="w-full flex justify-center my-6">
   <div class="bg-white bg-opacity-10 px-6 py-4 rounded shadow w-[95%] animated-tony">
 
-    <!-- Buttons Row -->
-    <div class="text-white text-2xl flex space-x-4 mb-6">
+    <!-- Heading -->
+    <div class="text-center text-3xl font-bold text-green-400 mb-4">
+      Kob AI Image Generator App
+    </div>
+
+    <!-- Toggle Button -->
+    <div class="text-white text-2xl flex justify-center mb-6">
       <button
-        @click="toggleSection('kobAgentsList')"
-        class="bg-green-600 px-6 py-3 rounded flex-1 max-w-xs text-center font-semibold hover:bg-green-700 transition"
+        @click="toggleSection('imageGen')"
+        class="bg-green-600 px-6 py-3 rounded font-semibold hover:bg-green-700 transition"
       >
-        KOB AI Agents List
+        {{ activeSection === 'imageGen' ? 'Click To Hide kob ai Image Generator App' : 'Click To Show kob ai Image Generator App' }}
       </button>
     </div>
 
-    <!-- Agents List -->
-    <transition name="fade">
-      <div v-show="activeSection === 'kobAgentsList'" class="text-white text-lg">
-        <ul class="list-none space-y-4 max-w-md mx-auto">
-          <li class="flex justify-center">
-            <button
-              onclick="window.open('https://g.co/gemini/share/55eab16d1376', '_blank')"
-              class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded w-full text-center text-white transition"
-            >
-              kob ai Economist Agent
-            </button>
-          </li>
-
-          <li class="flex justify-center">
-            <button
-              onclick="window.open('https://g.co/gemini/share/c574a12d1633', '_blank')"
-              class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded w-full text-center text-white transition"
-            >
-              kob ai Medical Assistant
-            </button>
-          </li>
-
-          <li class="flex justify-center">
-            <button
-              onclick="window.open('https://g.co/gemini/share/a1e38c919e75', '_blank')"
-              class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded w-full text-center text-white transition"
-            >
-              kob ai Agriculturist Agent
-            </button>
-          </li>
-
-          <li class="flex justify-center">
-            <button
-              onclick="window.open('https://g.co/gemini/share/3837a7a28fc0', '_blank')"
-              class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded w-full text-center text-white transition"
-            >
-              kob ai Educator
-            </button>
-          </li>
-
-          <li class="flex justify-center">
-            <button
-              onclick="window.open('https://g.co/gemini/share/1f441fcc54b6', '_blank')"
-              class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded w-full text-center text-white transition"
-            >
-              kob ai Expert
-            </button>
-          </li>
-        </ul>
+         <!-- Gradio App Embed -->
+        <transition name="fade">
+          <div v-show="activeSection === 'imageGen'" class="flex justify-center">
+            <gradio-app src="https://greenstudio-kobai.hf.space"></gradio-app>
+          </div>
+        </transition>
       </div>
-    </transition>
-  </div>
-</div>
-
+    </div>
+ 
+ 
 <style>
 /* Fade animation for the list */
 .fade-enter-active, .fade-leave-active {
@@ -214,7 +150,7 @@
                 <button @click="toggleSection('vision')" class="bg-green-600 px-4 py-2 rounded w-3/4">Founders' Vision</button>
                 <div v-show="activeSection === 'vision'" class="mt-2 text-xl animated-heading text-green-400">
                   <p>GreenStudio was founded by Mr. Dembo Michael Mieh, a dedicated Research Scientist and innovator with a passion for emerging technologies. As the Chief Founder, Mr. Mieh brings over a decade of experience in research, development, and strategic innovation. His vision is to position Liberia as a regional leader in technology and AI development, through grassroots innovation and global collaboration.</p>
-                  <p class="mt-2">He is joined by Mr. James Sunday, the company’s Co-Founder, Chief Engineer, and an accomplished entrepreneur. Mr. Sunday plays a key role in engineering systems, product design, and bridging research with market-ready applications. Together, they lead GreenStudio with a shared commitment to ethical innovation, sustainable development, and empowerment through technology.</p>
+                  <p class="mt-2">He is joined by Mr. James Sandy, the company’s Co-Founder, Chief Engineer, and an accomplished entrepreneur. Mr. Sandy plays a key role in engineering systems, product design, and bridging research with market-ready applications. Together, they lead GreenStudio with a shared commitment to ethical innovation, sustainable development, and empowerment through technology.</p>
                 </div>
               </li>
               <li>
@@ -254,6 +190,8 @@
         </tr>
       </table>
     </div>
+   
+ 
  <footer class="mt-12 text-center text-sm text-gray-300">
   <p>&copy; 2025 GreenStudio | kob ai. All rights reserved.</p>
   <p>
@@ -262,37 +200,41 @@
     </a>
     &nbsp;|&nbsp;
     <a href="https://www.facebook.com/share/1XT5qEbUgG/" target="_blank" class="text-blue-500 hover:text-blue-700">
-      Chief Engineer James Sunday
+      Chief Engineer James Sandy
     </a>
   </p>
 </footer>
-  </div>
-
+    <!-- Vue App -->
   <script>
     const { createApp } = Vue;
     createApp({
       data() {
         return {
-          activeSection: null
+          activeSection: null,
+          slides: [
+            { type: 'image', src: "./images/g.png" },
+            { type: 'image', src: "./images/k.png" },
+          ],
+          currentSlide: 0
         }
       },
       methods: {
         toggleSection(section) {
           this.activeSection = this.activeSection === section ? null : section;
+        },
+        nextSlide() {
+          this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+        },
+        prevSlide() {
+          this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
         }
+      },
+      mounted() {
+        setInterval(this.nextSlide, 5000);
       }
     }).mount('#app');
-    
-    
-  
-    document.getElementById('showEmbedBtn').addEventListener('click', function () {
-      document.getElementById('gradioEmbed').classList.remove('hidden');
-      this.classList.add('hidden'); // Optionally hide button after click
-    });
-
-
- 
   </script>
+  
 </body>
 </html>
 
