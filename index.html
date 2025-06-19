@@ -48,14 +48,12 @@
   </style>
 </head>
 
-<body id="app" class="text-white" v-cloak>
+ <body id="app" class="text-white" v-cloak>
   <div class="flex flex-col items-center">
 
     <!-- Slideshow Section -->
     <div class="w-full flex justify-center py-4">
       <div class="relative w-[90%] md:w-[80%] rounded overflow-hidden shadow-lg">
-
-        <!-- Slideshow Images and Videos -->
         <transition-group name="slide" tag="div" class="relative h-56 md:h-72">
           <template v-for="(slide, index) in slides" :key="slide.src">
             <img
@@ -68,22 +66,13 @@
               v-else-if="slide.type === 'video' && currentSlide === index"
               :src="slide.src"
               class="absolute w-full h-full object-cover"
-              autoplay
-              muted
-              loop
-              playsinline
+              autoplay muted loop playsinline
             ></video>
           </template>
         </transition-group>
 
-        <!-- Logo bottom-left -->
-        <img
-          src="./images/w.png"
-          alt="Logo"
-          class="absolute bottom-2 left-2 w-20 h-auto opacity-50"
-        />
+        <img src="./images/w.png" alt="Logo" class="absolute bottom-2 left-2 w-20 h-auto opacity-50"/>
 
-        <!-- Navigation Buttons -->
         <button @click="prevSlide"
           class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full hover:bg-opacity-80">
           ‹
@@ -95,26 +84,22 @@
       </div>
     </div>
 
-    <!-- Image Generation Table -->
-<div class="w-full flex justify-center my-6">
-  <div class="bg-white bg-opacity-10 px-6 py-4 rounded shadow w-[95%] animated-tony">
+    <!-- Image Generation Section -->
+    <div class="w-full flex justify-center my-6">
+      <div class="bg-white bg-opacity-10 px-6 py-4 rounded shadow w-[95%] animated-tony">
+        <div class="text-center text-3xl font-bold text-green-400 mb-4">
+          Kob AI Image Generator App
+        </div>
 
-    <!-- Heading -->
-    <div class="text-center text-3xl font-bold text-green-400 mb-4">
-      Kob AI Image Generator App
-    </div>
+        <div class="text-white text-2xl flex justify-center mb-6">
+          <button
+            @click="toggleSection('imageGen')"
+            class="bg-green-600 px-6 py-3 rounded font-semibold hover:bg-green-700 transition"
+          >
+            {{ activeSection === 'imageGen' ? 'Click To Hide kob ai Image Generator App' : 'Click To Show kob ai Image Generator App' }}
+          </button>
+        </div>
 
-    <!-- Toggle Button -->
-    <div class="text-white text-2xl flex justify-center mb-6">
-      <button
-        @click="toggleSection('imageGen')"
-        class="bg-green-600 px-6 py-3 rounded font-semibold hover:bg-green-700 transition"
-      >
-        {{ activeSection === 'imageGen' ? 'Click To Hide kob ai Image Generator App' : 'Click To Show kob ai Image Generator App' }}
-      </button>
-    </div>
-
-         <!-- Gradio App Embed -->
         <transition name="fade">
           <div v-show="activeSection === 'imageGen'" class="flex justify-center">
             <gradio-app src="https://greenstudio-kobai.hf.space"></gradio-app>
@@ -122,17 +107,7 @@
         </transition>
       </div>
     </div>
- 
- 
-<style>
-/* Fade animation for the list */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-}
-</style>
+
 
     <!-- Dembo Table -->
     <div class="w-full flex justify-center px-4 pt-4">
@@ -204,10 +179,11 @@
     </a>
   </p>
 </footer>
-    <!-- Vue App -->
+   <!-- Vue App -->
   <script>
     const { createApp } = Vue;
-    createApp({
+
+    const app = createApp({
       data() {
         return {
           activeSection: null,
@@ -216,7 +192,7 @@
             { type: 'image', src: "./images/k.png" },
           ],
           currentSlide: 0
-        }
+        };
       },
       methods: {
         toggleSection(section) {
@@ -232,7 +208,14 @@
       mounted() {
         setInterval(this.nextSlide, 5000);
       }
-    }).mount('#app');
+    });
+
+    // Allow custom elements like <gradio-app>
+    app.config.compilerOptions = {
+      isCustomElement: tag => tag === 'gradio-app'
+    };
+
+    app.mount('#app');
   </script>
   
 </body>
