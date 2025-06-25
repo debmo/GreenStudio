@@ -107,7 +107,40 @@
         </transition>
       </div>
     </div>
+<!-- Chatbot Assistant Section -->
+<div class="w-full flex justify-center my-6">
+  <div class="bg-white bg-opacity-10 px-6 py-4 rounded shadow w-[95%]">
+    <div class="text-center text-3xl font-bold text-green-400 mb-4">
+      Liberia AI Assistant – Chatbot
+    </div>
 
+    <div class="text-white text-2xl flex justify-center mb-6">
+      <button
+        @click="toggleSection('chatbot')"
+        class="bg-green-600 px-6 py-3 rounded font-semibold hover:bg-green-700 transition"
+      >
+        {{ activeSection === 'chatbot' ? 'Hide Liberia AI Assistant Chatbot' : 'Show Liberia AI Assistant Chatbot' }}
+      </button>
+    </div>
+
+    <transition name="fade">
+      <div v-show="activeSection === 'chatbot'" class="flex justify-center">
+        <div class="relative w-full max-w-5xl">
+          <div class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center z-10" id="chatbot-loader">
+            <div class="border-8 border-gray-300 border-t-green-600 rounded-full w-16 h-16 animate-spin"></div>
+          </div>
+          <iframe
+            id="chatbot-frame"
+            src="https://greenstudio-kob.hf.space"
+            allow="microphone; camera"
+            class="w-full h-[500px] rounded-lg shadow-lg transition-opacity duration-500 opacity-0"
+            onload="document.getElementById('chatbot-loader').style.display='none'; this.style.opacity='1';"
+          ></iframe>
+        </div>
+      </div>
+    </transition>
+  </div>
+</div>
 
     <!-- Dembo Table -->
     <div class="w-full flex justify-center px-4 pt-4">
