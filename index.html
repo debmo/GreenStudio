@@ -18,6 +18,15 @@
     display: none !important;
   }
 </style>
+
+<!-- Plausible Analytics -->
+<script defer data-domain="debmo.github.io/greenstudio" src="https://plausible.io/js/script.file-downloads.outbound-links.js"></script>
+<script>
+  window.plausible = window.plausible || function () {
+    (window.plausible.q = window.plausible.q || []).push(arguments);
+  };
+</script>
+
   <style>
     html, body {
       margin: 0;
@@ -218,43 +227,57 @@
 </footer>
    <!-- Vue App -->
   <script>
-    const { createApp } = Vue;
+  const { createApp } = Vue;
 
-    const app = createApp({
-      data() {
-        return {
-          activeSection: null,
-          slides: [
-            { type: 'image', src: "./images/g.webp" },
-            { type: 'image', src: "./images/k.webp" },
-          ],
-          currentSlide: 0
-        };
-      },
-      methods: {
-        toggleSection(section) {
-          this.activeSection = this.activeSection === section ? null : section;
-        },
-        nextSlide() {
-          this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-        },
-        prevSlide() {
-          this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+  const app = createApp({
+    data() {
+      return {
+        activeSection: null,
+        slides: [
+          { type: 'image', src: "./images/g.webp" },
+          { type: 'image', src: "./images/k.webp" },
+        ],
+        currentSlide: 0
+      };
+    },
+    methods: {
+      toggleSection(section) {
+        this.activeSection = this.activeSection === section ? null : section;
+
+        // Plausible custom event tracking
+        if (window.plausible) {
+          const eventsMap = {
+            imageGen: 'Image Generator Opened',
+            chatbot: 'Chatbot Opened',
+            about: 'About Section Viewed',
+            vision: 'Vision Section Viewed',
+            kob: 'Kob AI Section Viewed',
+            focus: 'Focus Areas Viewed',
+            commitment: 'Commitment Section Viewed'
+          };
+          const eventName = eventsMap[section];
+          if (eventName) plausible(eventName);
         }
       },
-      mounted() {
-        setInterval(this.nextSlide, 5000);
+      nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+      },
+      prevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
       }
-    });
+    },
+    mounted() {
+      setInterval(this.nextSlide, 5000);
+    }
+  });
 
-    // Allow custom elements like <gradio-app>
-    app.config.compilerOptions = {
-      isCustomElement: tag => tag === 'gradio-app'
-    };
+  // Allow custom elements like <gradio-app>
+  app.config.compilerOptions = {
+    isCustomElement: tag => tag === 'gradio-app'
+  };
 
-    app.mount('#app');
-  </script>
-  
+  app.mount('#app');
+</script>
 </body>
 </html>
 
