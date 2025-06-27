@@ -56,24 +56,10 @@
     }
  
   </style>
-  <!-- Plausible Analytics (Dynamic Loader for GitHub Pages) -->
+ <!-- ✅ Full-featured Plausible analytics script -->
+<script defer data-domain="debmo.github.io/greenstudio" src="https://plausible.io/js/script.file-downloads.outbound-links.pageview-props.revenue.tagged-events.js"></script>
 <script>
-  var script = document.createElement('script');
-  script.defer = true;
-  script.dataset.domain = "debmo.github.io/greenstudio"; // MUST MATCH YOUR LIVE PAGE
-  script.dataset.api = "https://plausible.io/api/event";
-  script.src = "https://plausible.io/js/script.pageview-props.js";
-
-  // Optional Custom Properties:
-  script.setAttribute("event-author", "Dembo Michael Mieh");
-  script.setAttribute("event-logged_in", "true"); // You can remove or customize this
-
-  document.getElementsByTagName('head')[0].appendChild(script);
-</script>
-
-<!-- Optional fallback for event calls -->
-<script>
-  window.plausible = window.plausible || function () {
+  window.plausible = window.plausible || function() {
     (window.plausible.q = window.plausible.q || []).push(arguments);
   };
 </script>
