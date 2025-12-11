@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -69,65 +69,80 @@
   </nav>
 
   <div class="h-nav-spacer"></div>
-
-  <div id="ilearning-demo-section" class="max-w-7xl mx-auto px-4 py-12">
+ <div id="ilearning-demo-section" class="max-w-7xl mx-auto px-4 py-12">
     <div class="bg-black bg-opacity-70 p-8 md:p-10 rounded-xl shadow-2xl border border-green-700">
         
         <h2 class="text-4xl md:text-5xl font-bold text-center mb-10 text-green-300 border-b pb-4 border-green-700">
             Welcome To iLearning Demo
         </h2>
 
-        <div class="relative w-full rounded-xl overflow-hidden shadow-2xl border border-green-600 mb-8">
-            <transition-group name="slide-fade" tag="div" class="relative h-[16rem] md:h-[28rem] w-full">
-                <div v-for="(slide, index) in limitedSlides" 
-                    :key="index" 
-                    v-show="currentDemoSlide === index"
-                    class="absolute top-0 left-0 w-full h-full">
+        <div class="grid md:grid-cols-2 gap-8 items-start">
+
+            <div>
+                <h3 class="text-2xl font-bold mb-4 text-green-300 md:hidden text-center">Course Demonstration</h3>
+                <div class="relative w-full rounded-xl overflow-hidden shadow-2xl border border-green-600">
+                    <transition-group name="slide-fade" tag="div" class="relative h-[24rem] lg:h-[30rem] w-full"> 
+                        <div v-for="(slide, index) in limitedSlides" 
+                            :key="index" 
+                            v-show="currentDemoSlide === index"
+                            class="absolute top-0 left-0 w-full h-full">
+                            
+                            <img :src="slide.src" 
+                                class="w-full h-full object-cover" 
+                                :alt="'Demo Slide ' + (index + 1)" />
+                        </div>
+                    </transition-group>
+
+                    <button @click="prevDemoSlide" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-60 text-white text-2xl px-4 py-2 rounded-full hover:bg-green-700 transition z-10 focus:outline-none">‹</button>
+                    <button @click="nextDemoSlide" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-60 text-white text-2xl px-4 py-2 rounded-full hover:bg-green-700 transition z-10 focus:outline-none">›</button>
                     
-                    <img :src="slide.src" 
-                        class="w-full h-full object-cover" 
-                        :alt="'Demo Slide ' + (index + 1)" />
-                        
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+                        <span v-for="(slide, index) in limitedSlides" :key="index" 
+                            :class="['w-2 h-2 rounded-full transition-all duration-300', currentDemoSlide === index ? 'bg-green-400 w-4' : 'bg-gray-400']">
+                        </span>
+                    </div>
                 </div>
-            </transition-group>
-
-            <button @click="prevDemoSlide" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-60 text-white text-2xl px-4 py-2 rounded-full hover:bg-green-700 transition z-10 focus:outline-none">‹</button>
-            <button @click="nextDemoSlide" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-60 text-white text-2xl px-4 py-2 rounded-full hover:bg-green-700 transition z-10 focus:outline-none">›</button>
-            
-            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-                <span v-for="(slide, index) in limitedSlides" :key="index" 
-                    :class="['w-2 h-2 rounded-full transition-all duration-300', currentDemoSlide === index ? 'bg-green-400 w-4' : 'bg-gray-400']">
-                </span>
             </div>
-        </div>
-
-        <div class="text-center mb-8">
-            <button @click="showDescription = !showDescription" 
-                    class="px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105 inline-flex items-center">
-                {{ showDescription ? 'Hide Course Description' : 'About This Courses' }}
-                <svg :class="['ml-2 w-4 h-4 transition-transform duration-300', showDescription ? 'transform rotate-180' : '']" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </button>
-        </div>
-
+            <div>
+                <h3 class="text-3xl font-bold mb-4 text-green-300 border-b border-green-700 pb-2">FullStack Web Developer Fundamentals</h3>
+                <div class="text-gray-200 text-left mb-6">
+                    <p class="mb-4">
+                        This introductory course, leveraging freeCodeCamp.org resources, is designed to give you a foundational understanding of modern web development. You will learn the core technologies: **HTML** for structure, **CSS** for styling, and **JavaScript** for interactivity.
+                    </p>
+                    <p class="mb-4">
+                        Our goal is to equip Liberian youth with the digital skills needed to thrive in the 21st-century economy, paving the way for local innovation and technological self-sufficiency.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 ml-4 p-4 bg-green-900 bg-opacity-20 rounded-lg border border-green-800">
+                        <li class="font-semibold text-green-400">Key Outcomes:</li>
+                        <li>Learn to build responsive, mobile-friendly websites.</li>
+                        <li>Understand the concept of front-end and back-end development.</li>
+                        <li>Hands-on projects focused on real-world application.</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <button @click="showDescription = !showDescription" 
+                            class="px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105 inline-flex items-center">
+                        {{ showDescription ? 'View Schedule' : 'Start Learning Now' }}
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+            </div>
         <transition name="slide-down">
-            <div v-if="showDescription" class="p-6 bg-green-900 bg-opacity-40 rounded-lg border border-green-600 text-gray-100">
-                <h3 class="text-2xl font-bold mb-3 text-green-300">iLearning Demo Courses</h3>
-                <p class="mb-4">
-                    This demo courses is made up of two session ; Google Courses and Cisco Courses.
-                </p>
-                <p class="mb-4">
-                    After you complete a course yoi va test your Knowledge, and take a test in our whatsapp, also you will work on a project to certificate. 
-                </p>
-                <ul class="list-disc list-inside space-y-1 ml-4">
-                    <li>Learn to build responsive, mobile-friendly websites.</li>
-                    <li>Understand the concept of front-end and back-end development.</li>
-                    <li>Hands-on projects focused on real-world application.</li>
-                </ul>
+            <div v-if="showDescription" class="mt-8 p-6 bg-green-900 bg-opacity-40 rounded-lg border border-green-600 text-gray-100">
+                <h3 class="text-xl font-bold mb-3 text-green-300">Detailed Course Schedule & Prerequisites</h3>
+                <p>Module 1: HTML Structure & Semantics (2 Weeks)</p>
+                <p>Module 2: CSS Layouts (Flexbox & Grid) (3 Weeks)</p>
+                <p>Module 3: JavaScript Fundamentals & DOM Manipulation (4 Weeks)</p>
+                <p class="mt-4">***Prerequisite: Basic computer literacy required.***</p>
             </div>
         </transition>
-
     </div>
-  </div>
+</div>
+
+
+
   <div id="google-courses-section" class="max-w-7xl mx-auto px-4 py-12">
     <div class="bg-black bg-opacity-70 p-8 md:p-10 rounded-xl shadow-2xl border border-green-700">
         
@@ -138,8 +153,9 @@
         <div class="flex justify-center mb-12">
             <img 
               src="./images/google.jpg" 
-              alt="Google Courses Placeholder" 
-              class="w-full max-w-4xl rounded-xl shadow-xl border border-green-500 object-cover"
+              onerror="this.onerror=null; this.src='https://placehold.co/1024x200/4CAF50/FFFFFF?text=Google+Courses+RUL';"
+              alt="Google Courses RUL Placeholder" 
+              class="w-full max-w-4xl rounded-xl shadow-xl border border-green-500 object-cover h-32 md:h-48"
             >
         </div>
 
@@ -295,7 +311,6 @@
 
     </div>
   </div>
-  
   <div id="cisco-courses-section" class="max-w-7xl mx-auto px-4 py-12">
     <div class="bg-black bg-opacity-70 p-8 md:p-10 rounded-xl shadow-2xl border border-green-700">
         
@@ -390,6 +405,7 @@
     </div>
   </div>
   
+
   <footer class="text-center text-sm text-gray-300 bg-black bg-opacity-60 py-8 backdrop-blur-md border-t border-green-600">
     <p>&copy; 2025 GreenStudio | kob ai. All rights reserved.</p>
     <div class="mt-4 space-x-4">
@@ -398,9 +414,9 @@
         <a href="#" class="hover:text-green-400"><i class="fab fa-instagram"></i></a>
     </div>
   </footer>
+  
+<script>
 
-
-  <script>
     const { createApp } = Vue;
 
     createApp({
@@ -433,8 +449,6 @@
         setInterval(this.nextDemoSlide, 6000); 
       }
     }).mount('#app');
-  </script>
-
-
+</script>
 </body>
 </html>

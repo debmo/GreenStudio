@@ -20,138 +20,236 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
-      <ul id="menu" class="hidden md:flex space-x-6 text-lg font-semibold absolute md:static top-16 left-0 w-full md:w-auto bg-black md:bg-transparent bg-opacity-40 md:bg-opacity-0 py-2 md:py-0 text-center md:text-left transition-all duration-300">
-        <li><a href="index.html" class="block py-2 md:py-0 hover:text-green-400 transition border-b-2 border-green-400">Home</a></li>
+
+      <ul id="menu" class="hidden md:flex md:space-x-6 text-lg font-semibold absolute md:static top-16 left-0 w-full md:w-auto bg-black md:bg-transparent bg-opacity-40 md:bg-opacity-0 py-2 md:py-0 text-center md:text-left transition-all duration-300">
+        
+        <li class="relative group">
+          <a href="#top" class="block py-2 md:py-0 hover:text-green-400 transition border-b-2 border-green-400">
+            Home
+            <i class="fas fa-caret-down ml-1 text-sm md:hidden"></i>
+          </a>
+          
+          <ul class="sub-menu md:absolute md:top-full md:left-0 md:bg-black md:bg-opacity-80 md:rounded-lg md:p-2 md:w-56 md:shadow-xl md:opacity-0 md:group-hover:opacity-100 md:invisible md:group-hover:visible md:transition-all md:duration-300 hidden md:block group-hover:block w-full py-2">
+            <li><a href="#core-mission" class="block px-4 py-2 text-sm hover:text-green-400 transition">Our Core Mission</a></li>
+            <li><a href="#ilearning" class="block px-4 py-2 text-sm hover:text-green-400 transition">iLearning Initiatives</a></li>
+            <li><a href="#support" class="block px-4 py-2 text-sm hover:text-green-400 transition">Support</a></li>
+            <li><a href="#tools" class="block px-4 py-2 text-sm hover:text-green-400 transition">Tools</a></li>
+          </ul>
+        </li>
+
         <li><a href="iLearning.html" class="block py-2 md:py-0 hover:text-green-400 transition">iLearning</a></li>
         <li><a href="contact.html" class="block py-2 md:py-0 hover:text-green-400 transition">Contact</a></li>
       </ul>
-    </div>
+      </div>
   </nav>
 
-  <div class="h-28 md:h-32"></div>
-
-  <section class="max-w-4xl mx-auto px-4 mb-16">
-    <div class="bg-black bg-opacity-70 rounded-xl overflow-hidden shadow-2xl border border-green-700">
+  <div class="h-28 md:h-32" id="top"></div>
+  <section class="max-w-4xl mx-auto px-4 mb-16" id="core-mission">
+    <div class="bg-black bg-opacity-70 rounded-xl shadow-2xl border border-green-700">
       
-      <div class="w-full h-64 lg:h-96 flex justify-center items-center p-4"> 
-        <img src="./images/prayer.jpg" alt="Core Mission" class="w-full h-full object-contain">
-      </div>
-
-      <div class="p-8 text-center collapsible-content-container"> 
-        <h2 class="text-3xl font-bold text-green-300 mb-4">Our Core Mission</h2>
+      <div class="grid md:grid-cols-2"> 
         
-        <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
-          Learn More
-        </button>
+        <div class="p-8 text-center collapsible-content-container border-b md:border-b-0 md:border-r border-green-700"> 
+          <h2 class="text-3xl font-bold text-green-300 mb-4">Our Core Mission</h2>
+          
+          <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
+            Learn More
+          </button>
 
-        <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
-          <p class="mb-2">
-            Welcome to GreenStudio. GreenStudio is a non-profit technology and research organization.
-          </p>
-          <p>
-            **Mission Focus:** Our core mission is driven by a deep commitment to ethical technology development and empowering communities. We believe in harnessing innovation for positive social impact, focusing on solutions that respect human dignity and promote global sustainability.
-          </p>
+          <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+            <p class="mb-2">
+              Welcome to GreenStudio. GreenStudio is a non-profit technology and research organization.<div class="w-full h-48 lg:h-80 flex justify-center items-center p-4 border-b border-green-700"> 
+              <img src="./images/co.jpg" alt="Mission Image 1" class="w-full h-full object-contain">
+            </div>
+            </p>
+            <p>
+              **Mission Focus:** Our core mission is driven by a deep commitment to ethical technology development and empowering communities. We believe in harnessing innovation for positive social impact, focusing on solutions that respect human dignity and promote global sustainability.
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-col w-full"> 
+            
+
+            <div class="w-full h-48 lg:h-80 flex justify-center items-center p-4"> 
+              <img src="./images/prayer.jpg" alt="Mission Image 2" class="w-full h-full object-contain">
+            </div>
+
+        </div>
         </div>
       </div>
-    </div>
-  </section>
-  
-  <section class="max-w-4xl mx-auto px-4 mb-16">
-    <div class="bg-black bg-opacity-70 rounded-xl overflow-hidden shadow-2xl border border-green-700">
+</section>
+  <section class="max-w-4xl mx-auto px-4 mb-16" id="ilearning">
+    <div class="bg-black bg-opacity-70 rounded-xl shadow-2xl border border-green-700">
       
-      <div class="w-full h-64 lg:h-96 flex justify-center items-center p-4">
-        <img src="./images/learn.jpg" alt="Sustainable Practices" class="w-full h-full object-contain">
+      <div class="p-8 text-center collapsible-content-container pb-0">
+          <h2 class="text-3xl font-bold text-green-300 mb-4">iLearning Initiatives</h2>
+          
+          <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
+            Learn More
+          </button>
       </div>
 
-      <div class="p-8 text-center collapsible-content-container">
-        <h2 class="text-3xl font-bold text-green-300 mb-4">iLearning Initiatives</h2>
-        
-        <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
-          Learn More
-        </button>
+      <div class="grid md:grid-cols-2">
 
-        <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
-          <p class="mb-2">
-            **Digital Education:** Our iLearning platform is dedicated to making high-quality, relevant technological education accessible to everyone. We offer free courses and resources covering essential skills, from basic computing to advanced coding and cybersecurity.
-          </p>
-          <p>
-             We focus on practical, project-based learning to ensure our community members are prepared for the modern digital economy.
-          </p>
+        <div class="w-full h-64 lg:h-96 flex justify-center items-center p-4 border-t md:border-r md:border-t-0 border-green-700">
+          <img src="./images/learn.jpg" alt="Sustainable Practices" class="w-full h-full object-contain">
+        </div>
+
+        <div class="px-8 pt-0 pb-8 text-center">
+          <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+            <p class="mb-2">
+              **Digital Education:** Our iLearning platform is dedicated to making high-quality, relevant technological education accessible to everyone. We offer free courses and resources covering essential skills, from basic computing to advanced coding and cybersecurity.
+            </p>
+            <p>
+               We focus on practical, project-based learning to ensure our community members are prepared for the modern digital economy.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+      </div>
   </section>
-  
-  <section class="max-w-4xl mx-auto px-4 mb-16">
-    <div class="bg-black bg-opacity-70 rounded-xl overflow-hidden shadow-2xl border border-green-700">
+  <section class="max-w-4xl mx-auto px-4 mb-16" id="support">
+    <div class="bg-black bg-opacity-70 rounded-xl shadow-2xl border border-green-700">
       
-      <div class="w-full h-64 lg:h-96 flex justify-center items-center p-4">
-        <img src="./images/support.jpg" alt="Open Source Education" class="w-full h-full object-contain">
+      <div class="p-8 text-center collapsible-content-container pb-0">
+          <h2 class="text-3xl font-bold text-green-300 mb-4">Support</h2>
+          
+          <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
+            Learn More
+          </button>
       </div>
 
-      <div class="p-8 text-center collapsible-content-container">
-        <h2 class="text-3xl font-bold text-green-300 mb-4">Support</h2>
-        
-        <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
-          Learn More
-        </button>
+      <div class="grid md:grid-cols-2">
 
-        <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
-          <p class="mb-2">
-             **Community Backing:** Support is the lifeblood of our non-profit work. We rely on the generosity of individuals and partners to sustain our free educational programs, fund research projects, and maintain our technical infrastructure.
-          </p>
-          <p>
-            Your contribution directly helps us bridge the digital divide and continue offering essential learning tools to underserved populations worldwide.
-          </p>
+        <div class="order-2 md:order-1 px-8 pt-0 pb-8 text-center border-t md:border-r md:border-t-0 border-green-700">
+          <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+            <p class="mb-2">
+               **Community Backing:** Support is the lifeblood of our non-profit work. We rely on the generosity of individuals and partners to sustain our free educational programs, fund research projects, and maintain our technical infrastructure.
+            </p>
+            <p>
+              Your contribution directly helps us bridge the digital divide and continue offering essential learning tools to underserved populations worldwide.
+            </p>
+          </div>
+        </div>
+        
+        <div class="order-1 md:order-2 w-full h-64 lg:h-96 flex justify-center items-center p-4">
+          <img src="./images/support.jpg" alt="Open Source Education" class="w-full h-full object-contain">
         </div>
       </div>
-    </div>
+      </div>
   </section>
-
-  <section class="max-w-4xl mx-auto px-4 mb-16">
-    <div class="bg-black bg-opacity-70 rounded-xl overflow-hidden shadow-2xl border border-green-700">
+  <section class="max-w-4xl mx-auto px-4 mb-16" id="tools">
+    <div class="bg-black bg-opacity-70 rounded-xl shadow-2xl border border-green-700">
       
-      <div class="w-full h-64 lg:h-96 flex justify-center items-center p-4">
-        <img src="./images/help.jpg" alt="iLearning Focus" class="w-full h-full object-contain">
+      <div class="p-8 text-center collapsible-content-container pb-0">
+          <h2 class="text-3xl font-bold text-green-300 mb-4">Tools</h2>
+          
+          <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
+            Learn More
+          </button>
       </div>
 
-      <div class="p-8 text-center collapsible-content-container">
-        <h2 class="text-3xl font-bold text-green-300 mb-4">Tools</h2>
+      <div class="grid md:grid-cols-2">
         
-        <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
-          Learn More
-        </button>
+        <div class="w-full h-64 lg:h-96 flex justify-center items-center p-4 border-t md:border-r md:border-t-0 border-green-700">
+          <img src="./images/help.jpg" alt="iLearning Focus" class="w-full h-full object-contain">
+        </div>
 
-        <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
-          <p class="mb-2">
-            **Digital Empowerment:** We develop and share open-source tools and applications designed to simplify complex tasks and enhance digital literacy. These tools are often customized for low-bandwidth environments to ensure accessibility for all users.
-          </p>
-          <p>
-             Our focus is on providing practical utilities that aid in learning, productivity, and ethical data management.
-          </p>
+        <div class="px-8 pt-0 pb-8 text-center">
+          <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+            <p class="mb-2">
+              **Digital Empowerment:** We develop and share open-source tools and applications designed to simplify complex tasks and enhance digital literacy. These tools are often customized for low-bandwidth environments to ensure accessibility for all users.
+            </p>
+            <p>
+               Our focus is on providing practical utilities that aid in learning, productivity, and ethical data management.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+      </div>
   </section>
-
-  
   <div class="h-12"></div>
 
-  <footer class="text-center text-sm text-gray-300 bg-black bg-opacity-60 py-8 backdrop-blur-md border-t border-green-600">
-    <p>&copy; 2025 GreenStudio | kob ai. All rights reserved.</p>
-    <div class="mt-4 space-x-4">
-        <a href="#" class="hover:text-green-400"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="hover:text-green-400"><i class="fab fa-facebook"></i></a>
-        <a href="#" class="hover:text-green-400"><i class="fab fa-instagram"></i></a>
+  <footer class="text-sm text-gray-300 bg-black bg-opacity-60 py-8 backdrop-blur-md border-t border-green-600">
+    <div class="max-w-7xl mx-auto px-4">
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-left border-b border-green-700 pb-6 mb-6">
+            
+            <div>
+                <h4 class="text-lg font-bold text-green-300 mb-3 border-b border-green-800 pb-1">Navigation</h4>
+                <ul class="space-y-1">
+                    <li><a href="index.html" class="hover:text-green-400 transition">Home</a></li>
+                    <li><a href="iLearning.html" class="hover:text-green-400 transition">iLearning</a></li>
+                    <li><a href="contact.html" class="hover:text-green-400 transition">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold text-green-300 mb-3 border-b border-green-800 pb-1">Resources</h4>
+                <ul class="space-y-1">
+                    <li><a href="#" class="hover:text-green-400 transition">Support & Help</a></li>
+                    <li><a href="#" class="hover:text-green-400 transition">Documentation</a></li>
+                    <li><a href="#" class="hover:text-green-400 transition">Our Tools</a></li>
+                    <li><a href="#" class="hover:text-green-400 transition">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold text-green-300 mb-3 border-b border-green-800 pb-1">Get In Touch</h4>
+                <ul class="space-y-1">
+                    <li>Email: <a href="mailto:contact@greenstudio.org" class="hover:text-green-400 transition">greenslstudio1@gmail.com</a></li>
+                    <li>Phone: +23188936822</li>
+                </ul>
+            </div>
+
+
+            <div>
+                <h4 class="text-lg font-bold text-green-300 mb-3 border-b border-green-800 pb-1">Connect</h4>
+                <div class="mt-4 space-x-4 text-center md:text-left">
+                    <a href="#" class="hover:text-green-400"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="hover:text-green-400"><i class="fab fa-facebook text-xl"></i></a>
+                    <a href="#" class="hover:text-green-400"><i class="fab fa-instagram text-xl"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center">
+            <p>&copy; 2025 GreenStudio | kob ai. All rights reserved.</p>
+        </div>
     </div>
   </footer>
-
   <script>
     // Mobile Menu Toggle
     const menuToggle = document.getElementById("menu-toggle");
     const menu = document.getElementById("menu");
+    const subMenu = document.querySelector('.sub-menu');
+    const homeLink = document.querySelector('.group > a'); // Selects the main 'Home' link
+
+    // Function to close the menu completely
+    function closeMenu() {
+        if (!menu.classList.contains('hidden')) {
+            menu.classList.add("hidden");
+        }
+    }
+    
+    // Toggle the main menu on mobile
     menuToggle.addEventListener("click", () => {
       menu.classList.toggle("hidden");
+    });
+
+    // Handle mobile sub-menu toggle (clicking 'Home' link on mobile)
+    homeLink.addEventListener('click', (e) => {
+        // Only run this logic on mobile devices (where the main menu is stacked)
+        if (window.innerWidth < 768) { // Tailwind's 'md' breakpoint is 768px
+             e.preventDefault(); // Prevent immediate jump to #top
+             subMenu.classList.toggle('hidden');
+        }
+    });
+
+    // Close mobile menu when a sub-link is clicked
+    document.querySelectorAll('.sub-menu a').forEach(link => {
+        link.addEventListener('click', closeMenu);
     });
     
     // --- FIXED LEARN MORE TOGGLE FUNCTION ---
@@ -166,7 +264,7 @@
             const container = this.closest('.collapsible-content-container');
             
             // Find the description text specifically within this container
-            const descriptionText = container.querySelector('.description-text');
+            const descriptionText = container.closest('section').querySelector('.description-text'); // Adjusted selector path
             
             // Toggle the 'hidden' class to show/hide the text
             descriptionText.classList.toggle('hidden');
