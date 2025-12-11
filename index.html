@@ -1,287 +1,212 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GreenStudio | kob ai</title>
-
- 
-
-  <!-- Tailwind CSS -->
+  <title>GreenStudio | Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Vue.js -->
-  <script src="https://unpkg.com/vue@3"></script>
- 
-  
-  <!-- Gradio Web Component -->
-  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/5.23.1/gradio.js"></script>
-
-<style>
-  [v-cloak] {
-    display: none !important;
-  }
-</style>
-
-
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      background-image: url("./images/x.webp");
-      background-size: cover;
-      background-position: center;
-      background-repeat: repeat;
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .fade-enter-active, .fade-leave-active {
-      transition: opacity 0.5s ease;
-    }
-    .fade-enter-from, .fade-leave-to {
-      opacity: 0;
-    }
-    .slide-enter-active, .slide-leave-active {
-      transition: all 0.6s ease;
-    }
-    .slide-enter-from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-    .slide-leave-to {
-      opacity: 0;
-      transform: translateX(-100%);
-    }
- 
-  </style>
- <!-- ✅ Full-featured Plausible analytics script -->
-<script defer data-domain="debmo.github.io/greenstudio" src="https://plausible.io/js/script.file-downloads.outbound-links.pageview-props.revenue.tagged-events.js"></script>
-<script>
-  window.plausible = window.plausible || function() {
-    (window.plausible.q = window.plausible.q || []).push(arguments);
-  };
-</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+<body class="text-white bg-cover bg-center bg-fixed" style="background-image: url('./images/co.jpg');">
 
- <body id="app" class="text-white" v-cloak>
-  <div class="flex flex-col items-center">
-
-    <!-- Slideshow Section -->
-    <div class="w-full flex justify-center py-4">
-      <div class="relative w-[90%] md:w-[80%] rounded overflow-hidden shadow-lg">
-        <transition-group name="slide" tag="div" class="relative h-[18rem] md:h-[32rem]">
-  <template v-for="(slide, index) in slides" :key="slide.src">
-    <img
-      v-if="slide.type === 'image' && currentSlide === index"
-      :src="slide.src"
-      class="absolute w-full h-full object-contain"
-      alt="Slideshow Image"
-    />
-    <video
-      v-else-if="slide.type === 'video' && currentSlide === index"
-      :src="slide.src"
-      class="absolute w-full h-full object-contain"
-      autoplay muted loop playsinline
-    ></video>
-  </template>
-</transition-group>
-
-        <img src="./images/w.webp" alt="Logo" class="absolute bottom-2 left-2 w-20 h-auto opacity-50"/>
-
-        <button @click="prevSlide"
-          class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full hover:bg-opacity-80">
-          ‹
-        </button>
-        <button @click="nextSlide"
-          class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full hover:bg-opacity-80">
-          ›
-        </button>
+  <nav class="fixed top-0 left-0 w-full bg-black bg-opacity-30 backdrop-blur-md z-50 shadow-lg border-b border-green-700">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="./images/logo.png" alt="GreenStudio Logo" class="w-12 h-12 rounded-full border border-green-400 shadow-md">
+        <span class="text-2xl font-bold text-green-300 tracking-wide">GreenStudio</span>
       </div>
-    </div>
-
-    <!-- Image Generation Section -->
-    <div class="w-full flex justify-center my-6">
-      <div class="bg-white bg-opacity-10 px-6 py-4 rounded shadow w-[95%] animated-tony">
-        <div class="text-center text-3xl font-bold text-green-400 mb-4">
-          Kob AI Image Generator App
-        </div>
-
-        <div class="text-white text-2xl flex justify-center mb-6">
-          <button
-            @click="toggleSection('imageGen')"
-            class="bg-green-600 px-6 py-3 rounded font-semibold hover:bg-green-700 transition"
-          >
-            {{ activeSection === 'imageGen' ? 'Click To Hide kob ai Image Generator App' : 'Click To Show kob ai Image Generator App' }}
-          </button>
-        </div>
-
-        <transition name="fade">
-          <div v-show="activeSection === 'imageGen'" class="flex justify-center">
-            <gradio-app src="https://greenstudio-kobai.hf.space"></gradio-app>
-          </div>
-        </transition>
-      </div>
-    </div>
-<!-- Chatbot Assistant Section -->
-<div class="w-full flex justify-center my-6">
-  <div class="bg-white bg-opacity-10 px-6 py-4 rounded shadow w-[95%]">
-    <div class="text-center text-3xl font-bold text-green-400 mb-4">
-      Liberia AI Assistant – Chatbot
-    </div>
-
-    <div class="text-white text-2xl flex justify-center mb-6">
-      <button
-        @click="toggleSection('chatbot')"
-        class="bg-green-600 px-6 py-3 rounded font-semibold hover:bg-green-700 transition"
-      >
-        {{ activeSection === 'chatbot' ? 'Hide Liberia AI Assistant Chatbot' : 'Show Liberia AI Assistant Chatbot' }}
+      <button id="menu-toggle" class="md:hidden text-green-400 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
       </button>
+      <ul id="menu" class="hidden md:flex space-x-6 text-lg font-semibold absolute md:static top-16 left-0 w-full md:w-auto bg-black md:bg-transparent bg-opacity-40 md:bg-opacity-0 py-2 md:py-0 text-center md:text-left transition-all duration-300">
+        <li><a href="index.html" class="block py-2 md:py-0 hover:text-green-400 transition border-b-2 border-green-400">Home</a></li>
+        <li><a href="about.html" class="block py-2 md:py-0 hover:text-green-400 transition">About</a></li>
+        <li><a href="iLearning.html" class="block py-2 md:py-0 hover:text-green-400 transition">iLearning</a></li>
+        <li><a href="contact.html" class="block py-2 md:py-0 hover:text-green-400 transition">Contact</a></li>
+      </ul>
     </div>
+  </nav>
 
-    <transition name="fade">
-      <div v-show="activeSection === 'chatbot'" class="flex justify-center">
-        <div class="relative w-full max-w-5xl">
-          <div class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center z-10" id="chatbot-loader">
-            <div class="border-8 border-gray-300 border-t-green-600 rounded-full w-16 h-16 animate-spin"></div>
-          </div>
-          <iframe
-            id="chatbot-frame"
-            src="https://greenstudio-kob.hf.space"
-            allow="microphone; camera"
-            class="w-full h-[500px] rounded-lg shadow-lg transition-opacity duration-500 opacity-0"
-            onload="document.getElementById('chatbot-loader').style.display='none'; this.style.opacity='1';"
-          ></iframe>
+  <div class="h-28 md:h-32"></div>
+
+  <section class="max-w-4xl mx-auto px-4 mb-16">
+    <div class="bg-black bg-opacity-70 rounded-xl overflow-hidden shadow-2xl border border-green-700">
+      
+      <div class="w-full h-80 md:h-96">
+        <img src="./images/prayer.jpg" alt="Core Mission" class="w-full h-full object-cover">
+      </div>
+
+      <div class="p-8 text-center collapsible-content-container"> 
+        <h2 class="text-3xl font-bold text-green-300 mb-4">Our Core Mission</h2>
+        
+        <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
+          Learn More
+        </button>
+
+        <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+          <p class="mb-2">
+            Welcome to the detailed view of our latest project. At GreenStudio, we strive to combine nature with technology. 
+          </p>
+          <p>
+            By clicking this button, you've revealed more information about our sustainability goals, coding bootcamps, and community outreach programs. We believe in open-source education and a greener future.
+          </p>
         </div>
       </div>
-    </transition>
-  </div>
-</div>
-
-    <!-- Dembo Table -->
-    <div class="w-full flex justify-center px-4 pt-4">
-      <table class="w-2/3 h-[30rem] bg-white bg-opacity-10 rounded p-4 animate-pulse">
-        <tr>
-          <td class="text-center">
-            <ul class="space-y-4 text-lg">
-              <li>
-                <button @click="toggleSection('about')" class="bg-green-600 px-4 py-2 rounded w-3/4">About GreenStudio</button>
-                <div v-show="activeSection === 'about'" class="mt-2 text-xl animated-heading text-green-400">
-                  <p>GreenStudio is a visionary research and technology company based in Liberia, founded in 2014 to pursue innovations that shape the future. The company has a strong focus on generalist technologies and Artificial General Intelligence (AGI), with a mission to lead Africa into the age of intelligent systems that serve real-world needs.</p>
-                </div>
-              </li>
-              <li>
-                <button @click="toggleSection('vision')" class="bg-green-600 px-4 py-2 rounded w-3/4">Founders' Vision</button>
-                <div v-show="activeSection === 'vision'" class="mt-2 text-xl animated-heading text-green-400">
-                  <p>GreenStudio was founded by Mr. Dembo Michael Mieh, a dedicated Research Scientist and innovator with a passion for emerging technologies. As the Chief Founder, Mr. Mieh brings over a decade of experience in research, development, and strategic innovation. His vision is to position Liberia as a regional leader in technology and AI development, through grassroots innovation and global collaboration.</p>
-                  <p class="mt-2">He is joined by Mr. James Sandy, the company’s Co-Founder, Chief Engineer, and an accomplished entrepreneur. Mr. Sandy plays a key role in engineering systems, product design, and bridging research with market-ready applications. Together, they lead GreenStudio with a shared commitment to ethical innovation, sustainable development, and empowerment through technology.</p>
-                </div>
-              </li>
-              <li>
-                <button @click="toggleSection('kob')" class="bg-green-600 px-4 py-2 rounded w-3/4">Introducing Kob AI</button>
-                <div v-show="activeSection === 'kob'" class="mt-2 text-xl animated-heading text-green-400">
-                  <p>Kob AI is a groundbreaking AI research initiative by GreenStudio, aimed at creating Liberia’s own generalist, multimodal AI system. The name “Kob”, derived from the Liberian term “koboh,” symbolizes smart thinking, resilience, and adaptability—key traits embedded into the AI’s core philosophy.</p>
-                  <p class="mt-2">Still in development, Kob AI is a multi-model, multi-functional platform combining various intelligent technologies such as Natural Language Processing (NLP), Computer Vision, Audio Recognition, Knowledge Systems, Machine Learning, and Robotics Integration. Unlike narrow AI systems, Kob AI is designed to function across multiple sectors—serving as a generalist AI framework capable of learning and adapting to diverse real-world problems.</p>
-                </div>
-              </li>
-              <li>
-                <button @click="toggleSection('focus')" class="bg-green-600 px-4 py-2 rounded w-3/4">Focus Areas</button>
-                <div v-show="activeSection === 'focus'" class="mt-2 text-xl animated-heading text-green-400">
-                  <p>The Kob AI project is designed to be a versatile and adaptive generalist AI platform, targeting a wide range of sectors that are vital to Liberia’s growth and Africa’s digital transformation. By combining multimodal capabilities with contextual intelligence, Kob AI supports innovation across the following key areas:</p>
-                  <ul class="list-disc list-inside mt-2 space-y-1">
-                    <li>AI & Medical</li>
-                    <li>AI & Education</li>
-                    <li>AI & Agriculture</li>
-                    <li>AI & Fintech</li>
-                    <li>AI & Business</li>
-                    <li>AI & App Development</li>
-                    <li>AI & Cutting-Edge Technology</li>
-                    <li>AI & Economics</li>
-                    <li>AI & Entrepreneurship</li>
-                    <li>AI & Image Analysis</li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <button @click="toggleSection('commitment')" class="bg-green-600 px-4 py-2 rounded w-3/4">Our Commitment</button>
-                <div v-show="activeSection === 'commitment'" class="mt-2 text-xl animated-heading text-green-400">
-                  <p>GreenStudio is not just building technology—we're building capacity, culture, and community. Our research is rooted in Africa’s realities, and our team is committed to creating homegrown solutions that compete on a global stage. We believe in AI for the people, by the people, and with the people.</p>
-                  <p class="mt-2">With continued research, cross-border collaboration, and support from tech visionaries, GreenStudio is charting a bold new path for Liberia in the age of intelligent technology.</p>
-                </div>
-              </li>
-            </ul>
-          </td>
-        </tr>
-      </table>
     </div>
-   
- 
- <footer class="mt-12 text-center text-sm text-gray-300">
-  <p>&copy; 2025 GreenStudio | kob ai. All rights reserved.</p>
-  <p>
-    <a href="https://www.facebook.com/share/1JDkTqA9Zu/" target="_blank" class="text-blue-500 hover:text-blue-700">
-      Chief Scientist Dembo Micheal Mieh
-    </a>
-    &nbsp;|&nbsp;
-    <a href="https://www.facebook.com/share/1XT5qEbUgG/" target="_blank" class="text-blue-500 hover:text-blue-700">
-      Chief Engineer James Sandy
-    </a>
-  </p>
-</footer>
-   <!-- Vue App -->
+  </section>
+  
+  <section class="max-w-4xl mx-auto px-4 mb-16">
+    <div class="bg-black bg-opacity-70 rounded-xl overflow-hidden shadow-2xl border border-green-700">
+      
+      <div class="w-full h-80 md:h-96">
+        <img src="./images/prayer.jpg" alt="Sustainable Practices" class="w-full h-full object-cover">
+      </div>
+
+      <div class="p-8 text-center collapsible-content-container">
+        <h2 class="text-3xl font-bold text-green-300 mb-4">Sustainable Practices</h2>
+        
+        <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
+          Learn More
+        </button>
+
+        <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+          <p class="mb-2">
+            We are dedicated to sustainable development, utilizing cloud resources efficiently and promoting eco-friendly coding patterns.
+          </p>
+          <p>
+            Discover our commitment to reducing energy consumption in all our digital operations, setting a new standard for green technology solutions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="max-w-4xl mx-auto px-4 mb-16">
+    <div class="bg-black bg-opacity-70 rounded-xl overflow-hidden shadow-2xl border border-green-700">
+      
+      <div class="w-full h-80 md:h-96">
+        <img src="./images/prayer.jpg" alt="Open Source Education" class="w-full h-full object-cover">
+      </div>
+
+      <div class="p-8 text-center collapsible-content-container">
+        <h2 class="text-3xl font-bold text-green-300 mb-4">Open Source Education</h2>
+        
+        <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
+          Learn More
+        </button>
+
+        <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+          <p class="mb-2">
+            Our educational initiatives are completely open source, providing free access to high-quality coding courses for everyone, everywhere.
+          </p>
+          <p>
+            Explore our curriculum and join our global student community dedicated to mastering technology with a focus on environmental awareness.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 mb-16">
+    <div class="bg-black bg-opacity-70 rounded-xl overflow-hidden shadow-2xl border border-green-700">
+      
+      <div class="w-full h-80 md:h-96">
+        <img src="./images/prayer.jpg" alt="iLearning Focus" class="w-full h-full object-cover">
+      </div>
+
+      <div class="p-8 text-center collapsible-content-container">
+        <h2 class="text-3xl font-bold text-green-300 mb-4">iLearning Focus</h2>
+        
+        <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
+          Learn More
+        </button>
+
+        <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+          <p class="mb-2">
+            The iLearning platform offers interactive modules on modern web development, data science, and cloud computing.
+          </p>
+          <p>
+            Start your journey with structured, project-based learning paths designed to get you job-ready in green technology fields.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 mb-16">
+    <div class="bg-black bg-opacity-70 rounded-xl overflow-hidden shadow-2xl border border-green-700">
+      
+      <div class="w-full h-80 md:h-96">
+        <img src="./images/prayer.jpg" alt="Support Center" class="w-full h-full object-cover">
+      </div>
+
+      <div class="p-8 text-center collapsible-content-container">
+        <h2 class="text-3xl font-bold text-green-300 mb-4">Support Center</h2>
+        
+        <button class="learn-more-btn bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg mb-4">
+          Learn More
+        </button>
+
+        <div class="description-text hidden mt-4 text-gray-200 text-left bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+          <p class="mb-2">
+            Need help with a project or course material? Our dedicated support team and community mentors are here to assist you 24/7.
+          </p>
+          <p>
+            Access FAQs, submit a support ticket, or join our Discord channel to connect directly with experts.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="h-12"></div>
+
+  <footer class="text-center text-sm text-gray-300 bg-black bg-opacity-60 py-8 backdrop-blur-md border-t border-green-600">
+    <p>&copy; 2025 GreenStudio | kob ai. All rights reserved.</p>
+    <div class="mt-4 space-x-4">
+        <a href="#" class="hover:text-green-400"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-green-400"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="hover:text-green-400"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
   <script>
-  const { createApp } = Vue;
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("menu");
+    menuToggle.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+    
+    // --- FIXED LEARN MORE TOGGLE FUNCTION ---
+    
+    // 1. Select ALL buttons with the class 'learn-more-btn'
+    const learnMoreBtns = document.querySelectorAll('.learn-more-btn');
 
-  const app = createApp({
-    data() {
-      return {
-        activeSection: null,
-        slides: [
-          { type: 'image', src: "./images/g.webp" },
-          { type: 'image', src: "./images/k.webp" },
-        ],
-        currentSlide: 0
-      };
-    },
-    methods: {
-      toggleSection(section) {
-        this.activeSection = this.activeSection === section ? null : section;
+    // 2. Iterate over each button to add a click listener
+    learnMoreBtns.forEach(button => {
+        button.addEventListener('click', function() {
+            // Find the immediate parent container that has the class 'collapsible-content-container'
+            const container = this.closest('.collapsible-content-container');
+            
+            // Find the description text specifically within this container
+            const descriptionText = container.querySelector('.description-text');
+            
+            // Toggle the 'hidden' class to show/hide the text
+            descriptionText.classList.toggle('hidden');
+    
+            // Change button text
+            if (descriptionText.classList.contains('hidden')) {
+                this.textContent = 'Learn More';
+            } else {
+                this.textContent = 'Show Less';
+            }
+        });
+    });
+    // --- END: FIXED LEARN MORE TOGGLE FUNCTION ---
 
-        // Plausible custom event tracking
-        if (window.plausible) {
-          const eventsMap = {
-            imageGen: 'Image Generator Opened',
-            chatbot: 'Chatbot Opened',
-            about: 'About Section Viewed',
-            vision: 'Vision Section Viewed',
-            kob: 'Kob AI Section Viewed',
-            focus: 'Focus Areas Viewed',
-            commitment: 'Commitment Section Viewed'
-          };
-          const eventName = eventsMap[section];
-          if (eventName) plausible(eventName);
-        }
-      },
-      nextSlide() {
-        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-      },
-      prevSlide() {
-        this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
-      }
-    },
-    mounted() {
-      setInterval(this.nextSlide, 5000);
-    }
-  });
-
-  // Allow custom elements like <gradio-app>
-  app.config.compilerOptions = {
-    isCustomElement: tag => tag === 'gradio-app'
-  };
-
-  app.mount('#app');
-</script>
+  </script>
 </body>
 </html>
-

@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenStudio | About</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <link rel="stylesheet" href="./css/style.css" /> 
+  
+  <style>
+    .h-nav-spacer { height: 7rem; }
+    [v-cloak] { display: none; }
+    
+    /* Vue transition for the cards */
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .fade-enter-from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    .fade-leave-to {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    /* Vue transition for the main carousel */
+    .slide-fade-move,
+    .slide-fade-enter-active,
+    .slide-fade-leave-active {
+      transition: opacity 1s ease;
+    }
+    .slide-fade-enter-from,
+    .slide-fade-leave-to {
+      opacity: 0;
+    }
+    .slide-fade-leave-active {
+      position: absolute; 
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body id="app" class="text-white bg-cover bg-center bg-fixed min-h-screen" style="background-image: url('./images/co.jpg');" v-cloak>
+
+  <nav class="fixed top-0 left-0 w-full bg-black bg-opacity-20 backdrop-blur-md z-50 shadow-lg border-b border-green-700">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img onerror="this.onerror=null; this.src='https://placehold.co/48x48/10B981/ffffff?text=GS';" src="./images/logo.png" alt="GreenStudio Logo" class="w-12 h-12 rounded-full border border-green-400 shadow-md">
+        <span class="text-2xl font-bold text-green-300 tracking-wide">GreenStudio</span>
+      </div>
+
+      <button @click="menuOpen = !menuOpen" class="md:hidden text-green-400 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path v-if="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <ul :class="['flex flex-col md:flex-row md:space-x-6 text-lg font-semibold absolute md:static bg-black md:bg-transparent bg-opacity-70 md:bg-opacity-0 left-0 w-full md:w-auto text-center md:text-left transition-all duration-300', menuOpen ? 'top-16 opacity-100' : 'top-[-400px] opacity-0 md:opacity-100 hidden md:flex']">
+        <li><a href="index.html" class="block py-2 md:py-0 hover:text-green-400 hover:scale-105 transition">Home</a></li>
+        <li><a href="about.html" class="block py-2 md:py-0 text-green-400 border-b-2 border-green-400 hover:scale-105 transition">About</a></li>
+        <li><a href="iLearning.html" class="block py-2 md:py-0 hover:text-green-400 hover:scale-105 transition">iLearning</a></li>
+        <li><a href="contact.html" class="block py-2 md:py-0 hover:text-green-400 hover:scale-105 transition">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="h-nav-spacer"></div>
+
+  <div class="pt-6 flex justify-center">
+    <div class="relative w-[90%] md:w-[80%] rounded-xl overflow-hidden shadow-2xl border border-green-600 bg-black">
+      
+      <transition-group name="slide-fade" tag="div" class="relative h-[18rem] md:h-[32rem] w-full">
+        <div v-for="(slide, index) in slides" 
+             :key="index" 
+             v-show="currentSlide === index"
+             class="absolute top-0 left-0 w-full h-full">
+             
+          <video v-if="slide.type === 'video'" 
+                 :src="slide.src" 
+                 class="w-full h-full object-cover" 
+                 autoplay muted loop playsinline>
+          </video>
+          
+          <img v-else 
+               :src="slide.src" 
+               class="w-full h-full object-cover" 
+               alt="Slide Image" />
+               
+        </div>
+      </transition-group>
+
+      <button @click="prevSlide" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-60 text-white text-2xl px-4 py-2 rounded-full hover:bg-green-700 transition z-10 focus:outline-none">‹</button>
+      <button @click="nextSlide" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-60 text-white text-2xl px-4 py-2 rounded-full hover:bg-green-700 transition z-10 focus:outline-none">›</button>
+      
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+        <span v-for="(slide, index) in slides" :key="index" 
+              :class="['w-2 h-2 rounded-full transition-all duration-300', currentSlide === index ? 'bg-green-400 w-4' : 'bg-gray-400']">
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div id="learning-content" class="max-w-7xl mx-auto px-4 py-12">
+    <div class="bg-black bg-opacity-70 p-8 md:p-10 rounded-xl shadow-2xl border border-green-700">
+        
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-green-300 border-b pb-4 border-green-700">
+            🎬 This is a demo for our iLeaning platform, together wecan build a digital Liberia
+        </h2>
+
+        <div class="mb-10">
+            <h3 class="text-2xl font-semibold mb-4 text-green-200"> A FullStack Web Developer course By freeCodeCamp.org </h3>
+            
+            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl">
+                <iframe 
+                    class="absolute top-0 left-0 w-full h-full"
+                    src="https://www.youtube.com/embed/LzMnsfqjzkA" 
+                    title="Sadhguru: The Secret of Your Success: Who are You?" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
+            <h3 class="text-2xl font-semibold mb-3 text-green-400"> Test Your Knowledge</h3>
+            <p class="mb-6 text-gray-200">
+                After completing the video, click the button below to submit your thoughts or start an assessment directly with an instructor via WhatsApp.
+            </p>
+            
+            <a href=" https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt " 
+               class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
+               target="_blank">
+                <i class="fab fa-whatsapp mr-3 text-xl"></i>
+                Start Quiz / Submit via WhatsApp
+            </a>
+        </div>
+    </div>
+  </div>
+  <div id="learning-content" class="max-w-7xl mx-auto px-4 py-12">
+    <div class="bg-black bg-opacity-70 p-8 md:p-10 rounded-xl shadow-2xl border border-green-700">
+        
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-green-300 border-b pb-4 border-green-700">
+            💻 Core Lesson: Introduction to Computing
+        </h2>
+
+        <div class="mb-10">
+            <h3 class="text-2xl font-semibold mb-4 text-green-200">1. Video Lesson: What is a Computer? (For Kids)</h3>
+            
+            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl">
+                <iframe 
+                    class="absolute top-0 left-0 w-full h-full"
+                    src="https://www.youtube.com/embed/cZaNf2rA30k" 
+                    title="What is a Computer? For Kids" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
+            <h3 class="text-2xl font-semibold mb-3 text-green-400">2. Test Your Knowledge</h3>
+            <p class="mb-6 text-gray-200">
+                After completing the video, click the button below to submit your thoughts or start an assessment directly with an instructor via WhatsApp.
+            </p>
+            
+            <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
+               class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
+               target="_blank">
+                <i class="fab fa-whatsapp mr-3 text-xl"></i>
+                Start Quiz / Submit via WhatsApp
+            </a>
+            
+        </div>
+    </div>
+</div>
+<div id="learning-content" class="max-w-7xl mx-auto px-4 py-12">
+    <div class="bg-black bg-opacity-70 p-8 md:p-10 rounded-xl shadow-2xl border border-green-700">
+        
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-green-300 border-b pb-4 border-green-700">
+            📚 Foundation Lesson: Understanding HTML and CSS
+        </h2>
+
+        <div class="mb-10">
+            <h3 class="text-2xl font-semibold mb-4 text-green-200">1. Video Lesson: What is HTML and CSS?</h3>
+            
+            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl">
+                <iframe 
+                    class="absolute top-0 left-0 w-full h-full"
+                    src="https://www.youtube.com/embed/G2fqAlgmoPo" 
+                    title="What is HTML and CSS?" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
+            <h3 class="text-2xl font-semibold mb-3 text-green-400">2. Test Your Knowledge</h3>
+            <p class="mb-6 text-gray-200">
+                After completing this essential lesson on the basics of web structure and styling, click the button below to submit your practice work or start a knowledge check via WhatsApp.
+            </p>
+            
+            <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
+               class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
+               target="_blank">
+                <i class="fab fa-whatsapp mr-3 text-xl"></i>
+                Start Quiz / Submit Assignment via WhatsApp
+            </a>
+            
+        </div>
+    </div>
+</div>
+  <footer class="text-center text-sm text-gray-300 bg-black bg-opacity-40 py-6 backdrop-blur-md border-t border-green-600">
+    <p>&copy; 2025 GreenStudio | kob ai. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          menuOpen: false,
+          slides: [
+            // --- 8 IMAGES ---
+            { type: 'image', src: './images/g.webp' }, 
+            { type: 'image', src: './images/k.webp' },
+            { type: 'image', src: './images/ico.jpg' },
+            // Using Placeholders for the remaining 5 images
+            { type: 'image', src: 'https://placehold.co/800x600/10B981/FFFFFF?text=Innovation+Hub' },
+            { type: 'image', src: 'https://placehold.co/800x600/065F46/FFFFFF?text=AI+Research' },
+            { type: 'image', src: 'https://placehold.co/800x600/047857/FFFFFF?text=Liberia+Tech' },
+            { type: 'image', src: 'https://placehold.co/800x600/064E3B/FFFFFF?text=Robotics' },
+            { type: 'image', src: 'https://placehold.co/800x600/34D399/000000?text=Community' },
+            
+            // --- 2 VIDEOS ---
+            // (Placeholder Videos)
+            { type: 'video', src: 'https://www.w3schools.com/html/mov_bbb.mp4' },
+            { type: 'video', src: 'https://www.w3schools.com/html/movie.mp4' }
+          ],
+          currentSlide: 0,
+          activeCard: null 
+        };
+      },
+      methods: {
+        nextSlide() {
+          this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+        },
+        prevSlide() {
+          this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+        },
+        toggleCard(id) {
+          this.activeCard = this.activeCard === id ? null : id;
+        }
+      },
+      mounted() {
+        // Auto-advance the slideshow every 6 seconds
+        setInterval(this.nextSlide, 6000); 
+      }
+    }).mount('#app');
+  </script>
+
+
+</body>
+</html>

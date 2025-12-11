@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenStudio | Contact</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <style>
+    /* Custom style for the spacer based on the provided index.html structure */
+    .nav-height-spacer {
+      height: 6rem; /* Adjust based on your nav height for top spacing */
+    }
+    [v-cloak] {
+        display: none;
+    }
+  </style>
+</head>
+
+<body id="app" class="text-white bg-cover bg-center bg-fixed min-h-screen" style="background-image: url('./images/co.jpg');" v-cloak>
+
+  <nav class="fixed top-0 left-0 w-full bg-black bg-opacity-30 backdrop-blur-md z-50 shadow-lg border-b border-green-700">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img onerror="this.onerror=null; this.src='https://placehold.co/48x48/10B981/ffffff?text=GS';" src="./images/logo.png" alt="GreenStudio Logo" class="w-12 h-12 rounded-full border border-green-400 shadow-md">
+        <span class="text-2xl font-bold text-green-300 tracking-wide">GreenStudio</span>
+      </div>
+
+      <button @click="menuOpen = !menuOpen" class="md:hidden text-green-400 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path v-if="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <ul :class="['flex flex-col md:flex-row md:space-x-6 text-lg font-semibold absolute md:static bg-black md:bg-transparent bg-opacity-70 md:bg-opacity-0 left-0 w-full md:w-auto text-center md:text-left transition-all duration-300', menuOpen ? 'top-16 opacity-100' : 'top-[-400px] opacity-0 md:opacity-100 hidden md:flex']">
+        <li><a href="index.html" class="block py-2 md:py-0 hover:text-green-400 transition">Home</a></li>
+        <li><a href="about.html" class="block py-2 md:py-0 hover:text-green-400 transition">About</a></li>
+        <li><a href="mission.html" class="block py-2 md:py-0 hover:text-green-400 transition">Mission & Vision</a></li>
+        <li><a href="apps.html" class="block py-2 md:py-0 hover:text-green-400 transition">Apps</a></li>
+        <li><a href="learning.html" class="block py-2 md:py-0 hover:text-green-400 transition">Learning</a></li>
+        <li><a href="contact.html" class="block py-2 md:py-0 text-green-400 border-b-2 border-green-400 transition">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="nav-height-spacer"></div>
+  
+  <div class="w-[90%] md:w-[80%] max-w-5xl mx-auto pb-16">
+    
+    <header class="text-center mb-12 py-8 bg-black bg-opacity-50 backdrop-blur-sm rounded-xl shadow-2xl border border-green-600">
+        <h1 class="text-5xl font-extrabold text-green-300 mb-2 tracking-wide">
+            Get in Touch
+        </h1>
+        <p class="text-xl text-gray-300 italic max-w-4xl mx-auto">
+            We are always open to collaborations, inquiries, and most importantly, your feedback.
+        </p>
+    </header>
+
+    <div class="grid lg:grid-cols-2 gap-10">
+        
+        <section class="bg-black bg-opacity-40 backdrop-blur-md rounded-xl p-8 shadow-2xl border border-green-700">
+            <h2 class="text-3xl font-bold text-white mb-6 border-b border-green-500 pb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 mr-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-17 4v6a2 2 0 002 2h12a2 2 0 002-2v-6m-4-2.58l-5.11-3.41a1 1 0 00-1.11 0L7 9.42M21 8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2V8z" /></svg>
+                General Inquiry
+            </h2>
+
+            <form @submit.prevent="submitForm('inquiry')" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Your Name</label>
+                    <input type="text" id="name" v-model="contactForm.name" required
+                        class="w-full p-3 bg-gray-800 text-white border border-green-600 rounded-lg focus:ring-green-500 focus:border-green-500 transition" />
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
+                    <input type="email" id="email" v-model="contactForm.email" required
+                        class="w-full p-3 bg-gray-800 text-white border border-green-600 rounded-lg focus:ring-green-500 focus:border-green-500 transition" />
+                </div>
+                <div>
+                    <label for="subject" class="block text-sm font-medium text-gray-300 mb-1">Subject</label>
+                    <input type="text" id="subject" v-model="contactForm.subject" required
+                        class="w-full p-3 bg-gray-800 text-white border border-green-600 rounded-lg focus:ring-green-500 focus:border-green-500 transition" />
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
+                    <textarea id="message" v-model="contactForm.message" rows="4" required
+                        class="w-full p-3 bg-gray-800 text-white border border-green-600 rounded-lg focus:ring-green-500 focus:border-green-500 resize-none transition"></textarea>
+                </div>
+                
+                <button type="submit" :disabled="isLoading.inquiry"
+                    class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition duration-150 disabled:bg-gray-500 disabled:cursor-not-allowed">
+                    <span v-if="!isLoading.inquiry">Send Message</span>
+                    <span v-else>Sending...</span>
+                </button>
+                
+                <p v-if="submissionStatus.inquiry" 
+                   :class="submissionStatus.inquiry.success ? 'text-green-400' : 'text-red-400'" 
+                   class="text-center mt-2 font-medium">
+                   {{ submissionStatus.inquiry.message }}
+                </p>
+            </form>
+        </section>
+
+        <section class="bg-black bg-opacity-40 backdrop-blur-md rounded-xl p-8 shadow-2xl border border-yellow-600">
+            <h2 class="text-3xl font-bold text-white mb-6 border-b border-yellow-500 pb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 mr-3 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                Provide Feedback
+            </h2>
+            <p class="text-gray-300 mb-4 text-sm italic">
+                Help us improve! We read every suggestion about our apps, learning materials, and website experience.
+            </p>
+
+            <form @submit.prevent="submitForm('feedback')" class="space-y-4">
+                <div>
+                    <label for="feedback_name" class="block text-sm font-medium text-gray-300 mb-1">Your Name (Optional)</label>
+                    <input type="text" id="feedback_name" v-model="feedbackForm.name"
+                        class="w-full p-3 bg-gray-800 text-white border border-yellow-600 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 transition" />
+                </div>
+                
+                <div>
+                    <label for="feedback_message" class="block text-sm font-medium text-gray-300 mb-1">Your Feedback / Suggestion</label>
+                    <textarea id="feedback_message" v-model="feedbackForm.message" rows="6" required
+                        class="w-full p-3 bg-gray-800 text-white border border-yellow-600 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 resize-none transition"
+                        placeholder="e.g., The app needs a dark mode, or 'The navigation links are confusing.'"></textarea>
+                </div>
+
+                <button type="submit" :disabled="isLoading.feedback || !feedbackForm.message.trim()"
+                    class="w-full py-3 bg-yellow-600 hover:bg-yellow-700 text-black font-bold rounded-lg transition duration-150 disabled:bg-gray-500 disabled:cursor-not-allowed">
+                    <span v-if="!isLoading.feedback">Submit Feedback</span>
+                    <span v-else>Submitting...</span>
+                </button>
+                
+                <p v-if="submissionStatus.feedback" 
+                   :class="submissionStatus.feedback.success ? 'text-yellow-400' : 'text-red-400'" 
+                   class="text-center mt-2 font-medium">
+                   {{ submissionStatus.feedback.message }}
+                </p>
+            </form>
+        </section>
+    </div>
+
+    <section class="mt-10 bg-black bg-opacity-40 backdrop-blur-md rounded-xl p-6 shadow-xl border border-green-700">
+        <h2 class="text-3xl font-bold text-white mb-4 text-center border-b border-green-500 pb-2">Key Contacts & Location</h2>
+        
+        <div class="grid md:grid-cols-3 gap-6 text-center">
+            
+            <div class="p-4 bg-gray-800/50 rounded-lg border-l-4 border-yellow-500">
+                <img src="./images/dembo_mieh.jpg" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/80x80/FBBF24/000000?text=DM';" 
+                     alt="Picture of Dembo Micheal Mieh" 
+                     class="w-20 h-20 mx-auto rounded-full object-cover mb-3 border-2 border-yellow-400 shadow-xl">
+                
+                <p class="font-semibold text-lg text-white">Founder</p>
+                <p class="text-green-300 text-xl font-bold">Dembo Micheal Mieh</p>
+                <p class="text-gray-400 text-xs mt-1">Research & AI Scientist, Liberia</p>
+                <p class="text-gray-300 text-sm mt-1 break-all">
+                    <a href="mailto:dembomieh1995@gmail.com" class="hover:text-yellow-300 transition">
+                        dembomieh1995@gmail.com
+                    </a>
+                </p>
+            </div>
+
+            <div class="p-4 bg-gray-800/50 rounded-lg border-l-4 border-green-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto text-green-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0L6.343 16.657a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <p class="font-semibold text-lg text-white">Office Location</p>
+                <p class="text-gray-300 text-sm">Monrovia, Liberia</p>
+                <p class="text-gray-400 text-xs">(Exact address provided upon request)</p>
+            </div>
+            
+            <div class="p-4 bg-gray-800/50 rounded-lg border-l-4 border-green-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto text-green-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-17 4v6a2 2 0 002 2h12a2 2 0 002-2v-6m-4-2.58l-5.11-3.41a1 1 0 00-1.11 0L7 9.42M21 8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2V8z" /></svg>
+                <p class="font-semibold text-lg text-white">General Inquiries & WhatsApp</p>
+                
+                <p class="text-gray-300 text-sm break-all mb-1">
+                    <a href="mailto:greenslstudio1@gmail.com" class="hover:text-green-300 transition">
+                        **greenslstudio1@gmail.com**
+                    </a>
+                </p>
+                <p class="text-green-300 text-sm font-bold">
+                    <a href="https://wa.me/231881936822" target="_blank" class="hover:text-green-400 transition">
+                        WhatsApp: **+231 881936822**
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center border-t border-gray-700 pt-6">
+            <p class="font-semibold text-2xl text-white mb-4">Follow & Engage with GreenStudio</p>
+            
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                
+                <a href="https://huggingface.co/GreenStudio" target="_blank" 
+                   class="inline-flex items-center px-4 py-2 bg-yellow-600 text-black font-bold rounded-full shadow-lg hover:bg-yellow-500 transition duration-200">
+                    <span class="text-lg mr-2">🤗</span> Hugging Face (AI Models)
+                </a>
+
+                <a href="https://www.facebook.com/profile.php?id=61575308992873" target="_blank" 
+                   class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-500 transition duration-200">
+                    <span class="text-lg mr-2">f</span> Facebook (Community)
+                </a>
+            </div>
+        </div>
+    </section>
+
+  </div> <footer class="mt-8 text-center text-sm text-gray-300 bg-black bg-opacity-40 py-6 backdrop-blur-md border-t border-green-600">
+    <p>&copy; 2025 GreenStudio | kob ai. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const menuOpen = ref(false);
+        const isLoading = ref({ inquiry: false, feedback: false });
+        const submissionStatus = ref({ inquiry: null, feedback: null });
+        
+        const contactForm = ref({
+            name: '',
+            email: '',
+            subject: '',
+            message: ''
+        });
+        
+        const feedbackForm = ref({
+            name: '',
+            message: ''
+        });
+
+        // --- Core Submission Logic (SIMULATED) ---
+        const submitForm = async (formType) => {
+            const form = formType === 'inquiry' ? contactForm.value : feedbackForm.value;
+            
+            if (formType === 'feedback' && !form.message.trim()) return;
+
+            isLoading.value[formType] = true;
+            submissionStatus.value[formType] = null; 
+            
+            // NOTE: Replace this simulation with a real API call to your backend service 
+            // (e.g., using fetch to submit data to Netlify Forms, Firebase, or your own server).
+            
+            try {
+                // Simulate a network request delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Simulate a successful response
+                console.log(`Submitting ${formType} data:`, form);
+                
+                submissionStatus.value[formType] = { 
+                    success: true, 
+                    message: `Thank you! Your ${formType} has been successfully received.`
+                };
+                
+                // Clear the form
+                if (formType === 'inquiry') {
+                    contactForm.value = { name: '', email: '', subject: '', message: '' };
+                } else {
+                    feedbackForm.value = { name: '', message: '' };
+                }
+
+            } catch (error) {
+                console.error(`Error submitting ${formType} form:`, error);
+                submissionStatus.value[formType] = { 
+                    success: false, 
+                    message: 'Submission failed. Please check your connection or email us directly.' 
+                };
+            } finally {
+                isLoading.value[formType] = false;
+                // Clear submission status after 5 seconds
+                setTimeout(() => { submissionStatus.value[formType] = null; }, 5000);
+            }
+        };
+
+
+        return {
+          menuOpen: ref(false),
+          contactForm,
+          feedbackForm,
+          isLoading,
+          submissionStatus,
+          submitForm,
+        };
+      },
+    }).mount('#app');
+  </script>
+</body>
+</html>
