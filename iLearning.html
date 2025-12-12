@@ -1,46 +1,31 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GreenStudio | About</title>
+  <title>GreenStudio | iLearning Portal</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/vue@3"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-  <link rel="stylesheet" href="./css/style.css" /> 
-  
   <style>
     .h-nav-spacer { height: 7rem; }
     [v-cloak] { display: none; }
     
-    /* Vue transition for the description */
-    .slide-down-enter-active, .slide-down-leave-active {
+    /* Carousel Transitions */
+    .slide-fade-enter-active, .slide-fade-leave-active { transition: opacity 1s ease; }
+    .slide-fade-enter-from, .slide-fade-leave-to { opacity: 0; }
+    .slide-fade-leave-active { position: absolute; top: 0; left: 0; width: 100%; }
+
+    /* Content Toggle Transition */
+    .v-expand-enter-active, .v-expand-leave-active {
       transition: all 0.5s ease-in-out;
-      max-height: 500px; /* Adjust as needed for content */
       overflow: hidden;
     }
-    .slide-down-enter-from, .slide-down-leave-to {
+    .v-expand-enter-from, .v-expand-leave-to {
       max-height: 0;
       opacity: 0;
-    }
-
-    /* Vue transition for the new 6-image carousel */
-    .slide-fade-move,
-    .slide-fade-enter-active,
-    .slide-fade-leave-active {
-      transition: opacity 1s ease;
-    }
-    .slide-fade-enter-from,
-    .slide-fade-leave-to {
-      opacity: 0;
-    }
-    .slide-fade-leave-active {
-      position: absolute; 
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
     }
   </style>
 </head>
@@ -49,406 +34,190 @@
   <nav class="fixed top-0 left-0 w-full bg-black bg-opacity-20 backdrop-blur-md z-50 shadow-lg border-b border-green-700">
     <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
       <div class="flex items-center space-x-3">
-        <img onerror="this.onerror=null; this.src='https://placehold.co/48x48/10B981/ffffff?text=GS';" src="./images/logo.png" alt="GreenStudio Logo" class="w-12 h-12 rounded-full border border-green-400 shadow-md">
+        <img src="./images/logo.png" alt="Logo" class="w-12 h-12 rounded-full border border-green-400">
         <span class="text-2xl font-bold text-green-300 tracking-wide">GreenStudio</span>
       </div>
 
-      <button @click="menuOpen = !menuOpen" class="md:hidden text-green-400 focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path v-if="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+      <button @click="menuOpen = !menuOpen" class="md:hidden text-green-400">
+        <i :class="menuOpen ? 'fas fa-times' : 'fas fa-bars'" class="text-2xl"></i>
       </button>
 
-      <ul :class="['flex flex-col md:flex-row md:space-x-6 text-lg font-semibold absolute md:static bg-black md:bg-transparent bg-opacity-70 md:bg-opacity-0 left-0 w-full md:w-auto text-center md:text-left transition-all duration-300', menuOpen ? 'top-16 opacity-100' : 'top-[-400px] opacity-0 md:opacity-100 hidden md:flex']">
-        <li><a href="index.html" class="block py-2 md:py-0 hover:text-green-400 hover:scale-105 transition">Home</a></li>
-        <li><a href="iLearning.html" class="block py-2 md:py-0 hover:text-green-400 hover:scale-105 transition">iLearning</a></li>
-        <li><a href="contact.html" class="block py-2 md:py-0 hover:text-green-400 hover:scale-105 transition">Contact</a></li>
+      <ul :class="['flex flex-col md:flex-row md:space-x-6 text-lg font-semibold absolute md:static bg-black md:bg-transparent left-0 w-full md:w-auto text-center transition-all duration-300', menuOpen ? 'top-16 opacity-100' : 'top-[-400px] opacity-0 md:opacity-100 hidden md:flex']">
+        <li><a href="index.html" class="block py-2 hover:text-green-400">Home</a></li>
+        <li><a href="iLearning.html" class="block py-2 text-green-400 border-b-2 border-green-400">iLearning</a></li>
+        <li><a href="contact.html" class="block py-2 hover:text-green-400">Contact</a></li>
       </ul>
     </div>
   </nav>
 
   <div class="h-nav-spacer"></div>
- <div id="ilearning-demo-section" class="max-w-7xl mx-auto px-4 py-12">
-    <div class="bg-black bg-opacity-70 p-8 md:p-10 rounded-xl shadow-2xl border border-green-700">
-        
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-10 text-green-300 border-b pb-4 border-green-700">
-            Welcome To iLearning Demo
-        </h2>
 
-        <div class="grid md:grid-cols-2 gap-8 items-start">
-
-            <div>
-                <h3 class="text-2xl font-bold mb-4 text-green-300 md:hidden text-center">Course Demonstration</h3>
-                <div class="relative w-full rounded-xl overflow-hidden shadow-2xl border border-green-600">
-                    <transition-group name="slide-fade" tag="div" class="relative h-[24rem] lg:h-[30rem] w-full"> 
-                        <div v-for="(slide, index) in limitedSlides" 
-                            :key="index" 
-                            v-show="currentDemoSlide === index"
-                            class="absolute top-0 left-0 w-full h-full">
-                            
-                            <img :src="slide.src" 
-                                class="w-full h-full object-cover" 
-                                :alt="'Demo Slide ' + (index + 1)" />
-                        </div>
-                    </transition-group>
-
-                    <button @click="prevDemoSlide" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-60 text-white text-2xl px-4 py-2 rounded-full hover:bg-green-700 transition z-10 focus:outline-none">‹</button>
-                    <button @click="nextDemoSlide" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-60 text-white text-2xl px-4 py-2 rounded-full hover:bg-green-700 transition z-10 focus:outline-none">›</button>
-                    
-                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-                        <span v-for="(slide, index) in limitedSlides" :key="index" 
-                            :class="['w-2 h-2 rounded-full transition-all duration-300', currentDemoSlide === index ? 'bg-green-400 w-4' : 'bg-gray-400']">
-                        </span>
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <div class="bg-black bg-opacity-70 p-8 rounded-xl border border-green-700">
+        <h2 class="text-4xl font-bold text-center mb-10 text-green-300 border-b pb-4 border-green-700">Welcome To iLearning Demo</h2>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="relative rounded-xl overflow-hidden border border-green-600 h-[24rem] lg:h-[30rem]">
+                <transition-group name="slide-fade">
+                    <div v-for="(slide, index) in slides" :key="index" v-show="currentSlide === index" class="absolute inset-0">
+                        <img :src="slide.src" class="w-full h-full object-cover">
                     </div>
+                </transition-group>
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                    <span v-for="(_, i) in slides" :key="i" :class="currentSlide === i ? 'bg-green-400 w-4' : 'bg-gray-500'" class="w-2 h-2 rounded-full transition-all"></span>
                 </div>
             </div>
             <div>
-                <h3 class="text-3xl font-bold mb-4 text-green-300 border-b border-green-700 pb-2">FullStack Web Developer Fundamentals</h3>
-                <div class="text-gray-200 text-left mb-6">
-                    <p class="mb-4">
-                        This introductory course, leveraging freeCodeCamp.org resources, is designed to give you a foundational understanding of modern web development. You will learn the core technologies: **HTML** for structure, **CSS** for styling, and **JavaScript** for interactivity.
-                    </p>
-                    <p class="mb-4">
-                        Our goal is to equip Liberian youth with the digital skills needed to thrive in the 21st-century economy, paving the way for local innovation and technological self-sufficiency.
-                    </p>
-                    <ul class="list-disc list-inside space-y-2 ml-4 p-4 bg-green-900 bg-opacity-20 rounded-lg border border-green-800">
-                        <li class="font-semibold text-green-400">Key Outcomes:</li>
-                        <li>Learn to build responsive, mobile-friendly websites.</li>
-                        <li>Understand the concept of front-end and back-end development.</li>
-                        <li>Hands-on projects focused on real-world application.</li>
-                    </ul>
-                </div>
-                
-                <div class="text-center md:text-left">
-                    <button @click="showDescription = !showDescription" 
-                            class="px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105 inline-flex items-center">
-                        {{ showDescription ? 'View Schedule' : 'Start Learning Now' }}
-                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </div>
+                <h3 class="text-3xl font-bold mb-4 text-green-300">iLearning Platform Demo</h3>
+                <p class="text-gray-200 mb-6 leading-relaxed">
+                    This is an introductory course, leveraging Google and Cisco resources. These courses are designed to give you a foundational understanding in: AI App Creation, Software Creation, Computer Networking, Cloud Technology, and Modern Web Development.
+                </p>
+                <p class="text-gray-200">Test your knowledge in our WhatsApp group chat after each module.</p>
             </div>
-            </div>
-        <transition name="slide-down">
-            <div v-if="showDescription" class="mt-8 p-6 bg-green-900 bg-opacity-40 rounded-lg border border-green-600 text-gray-100">
-                <h3 class="text-xl font-bold mb-3 text-green-300">Detailed Course Schedule & Prerequisites</h3>
-                <p>Module 1: HTML Structure & Semantics (2 Weeks)</p>
-                <p>Module 2: CSS Layouts (Flexbox & Grid) (3 Weeks)</p>
-                <p>Module 3: JavaScript Fundamentals & DOM Manipulation (4 Weeks)</p>
-                <p class="mt-4">***Prerequisite: Basic computer literacy required.***</p>
+        </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <div class="bg-black bg-opacity-70 p-8 rounded-xl border border-green-700">
+        <h2 class="text-4xl font-bold text-center mb-8 text-green-300">Google Courses</h2>
+        <div class="flex flex-col items-center">
+            <img src="./images/google.jpg" class="w-full max-w-4xl rounded-xl border border-green-500 h-48 object-cover mb-6">
+            <button @click="showGoogle = !showGoogle" class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-10 rounded-full transition transform hover:scale-105 mb-8">
+                {{ showGoogle ? 'Hide Course Content' : 'Show Google Courses' }}
+            </button>
+        </div>
+
+        <transition name="v-expand">
+            <div v-if="showGoogle" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+                    <h4 class="font-bold text-green-300 mb-2">1. HTML Basics</h4>
+                    <iframe class="w-full aspect-video rounded mb-4" src="https://www.youtube.com/embed/Qbix0BOPcgE"></iframe>
+                    <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa" class="block text-center bg-green-500 text-black py-2 rounded-full font-bold text-xs">Test on WhatsApp</a>
+                </div>
+                <div class="bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+                    <h4 class="font-bold text-green-300 mb-2">2. HTML & CSS</h4>
+                    <iframe class="w-full aspect-video rounded mb-4" src="https://www.youtube.com/embed/G2fqAlgmoPo"></iframe>
+                    <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa" class="block text-center bg-green-500 text-black py-2 rounded-full font-bold text-xs">Test on WhatsApp</a>
+                </div>
+                <div class="bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+                    <h4 class="font-bold text-green-300 mb-2">3. JavaScript Basics</h4>
+                    <iframe class="w-full aspect-video rounded mb-4" src="https://www.youtube.com/embed/KWarqNq195M"></iframe>
+                    <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa" class="block text-center bg-green-500 text-black py-2 rounded-full font-bold text-xs">Test on WhatsApp</a>
+                </div>
+                <div class="bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+                    <h4 class="font-bold text-green-300 mb-2">4. Intro to Coding</h4>
+                    <iframe class="w-full aspect-video rounded mb-4" src="https://www.youtube.com/embed/videoseries?list=PLBgogxgQVM9sGgpcBVYatuq67aGjW8wYJ"></iframe>
+                    <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa" class="block text-center bg-green-500 text-black py-2 rounded-full font-bold text-xs">Test on WhatsApp</a>
+                </div>
+                <div class="bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+                    <h4 class="font-bold text-green-300 mb-2">5. UX Design</h4>
+                    <iframe class="w-full aspect-video rounded mb-4" src="https://www.youtube.com/embed/videoseries?list=PLBgogxgQVM9tcNYUyRL2jvFNm7jsYlyPv"></iframe>
+                    <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa" class="block text-center bg-green-500 text-black py-2 rounded-full font-bold text-xs">Test on WhatsApp</a>
+                </div>
+                <div class="bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+                    <h4 class="font-bold text-green-300 mb-2">6. Digital Marketing</h4>
+                    <iframe class="w-full aspect-video rounded mb-4" src="https://www.youtube.com/embed/videoseries?list=PLBgogxgQVM9sl-KnKywVEhkb3QtLHU4OK"></iframe>
+                    <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa" class="block text-center bg-green-500 text-black py-2 rounded-full font-bold text-xs">Test on WhatsApp</a>
+                </div>
             </div>
         </transition>
     </div>
-</div>
+  </section>
 
-
-
-  <div id="google-courses-section" class="max-w-7xl mx-auto px-4 py-12">
-    <div class="bg-black bg-opacity-70 p-8 md:p-10 rounded-xl shadow-2xl border border-green-700">
-        
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-10 text-green-300 border-b pb-4 border-green-700">
-            Welcome To Google Courses
-        </h2>
-
-        <div class="flex justify-center mb-12">
-            <img 
-              src="./images/google.jpg" 
-              onerror="this.onerror=null; this.src='https://placehold.co/1024x200/4CAF50/FFFFFF?text=Google+Courses+RUL';"
-              alt="Google Courses RUL Placeholder" 
-              class="w-full max-w-4xl rounded-xl shadow-xl border border-green-500 object-cover h-32 md:h-48"
-            >
+  <section class="max-w-7xl mx-auto px-4 py-12 mb-12">
+    <div class="bg-black bg-opacity-70 p-8 rounded-xl border border-green-700">
+        <h2 class="text-4xl font-bold text-center mb-8 text-green-300">Cisco Courses</h2>
+        <div class="flex flex-col items-center">
+            <img src="./images/cisco.jpg" class="w-full max-w-4xl rounded-xl border border-blue-500 h-48 object-cover mb-6">
+            <button @click="showCisco = !showCisco" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-10 rounded-full transition transform hover:scale-105 mb-8">
+                {{ showCisco ? 'Hide Course Content' : 'Show Cisco Courses' }}
+            </button>
         </div>
 
-        <div class="mb-12 border-b border-green-800 pb-8">
-            <h3 class="text-2xl font-semibold mb-4 text-green-200">1. Video Lesson: HTML Basics (Google Developers)</h3>
-            
-            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl mb-6">
-                <iframe 
-                    class="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/Qbix0BOPcgE" 
-                    title="HTML Basics" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
+        <transition name="v-expand">
+            <div v-if="showCisco" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+                    <h4 class="font-bold text-green-300 mb-2">1. Intro to Networking</h4>
+                    <iframe class="w-full aspect-video rounded mb-4" src="https://www.youtube.com/embed/NJV_K5nBrkE"></iframe>
+                    <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa" class="block text-center bg-green-500 text-black py-2 rounded-full font-bold text-xs">Test on WhatsApp</a>
+                </div>
+                <div class="bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+                    <h4 class="font-bold text-green-300 mb-2">2. Cybersecurity Essentials</h4>
+                    <iframe class="w-full aspect-video rounded mb-4" src="https://www.youtube.com/embed/uaT5qcrQNns"></iframe>
+                    <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa" class="block text-center bg-green-500 text-black py-2 rounded-full font-bold text-xs">Test on WhatsApp</a>
+                </div>
+                <div class="bg-green-900 bg-opacity-20 p-4 rounded-lg border border-green-800">
+                    <h4 class="font-bold text-green-300 mb-2">3. Packet Tracer Intro</h4>
+                    <iframe class="w-full aspect-video rounded mb-4" src="https://www.youtube.com/embed/PNZze0dYRE"></iframe>
+                    <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa" class="block text-center bg-green-500 text-black py-2 rounded-full font-bold text-xs">Test on WhatsApp</a>
+                </div>
             </div>
-
-            <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
-                <h3 class="text-xl font-semibold mb-3 text-green-400">Test Your Knowledge</h3>
-                <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
-                   class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
-                   target="_blank">
-                    Start Test via WhatsApp Group
-                </a>
-            </div>
-        </div>
-
-        <div class="mb-12 border-b border-green-800 pb-8">
-            <h3 class="text-2xl font-semibold mb-4 text-green-200">2. Video Lesson: What is HTML and CSS?</h3>
-            
-            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl mb-6">
-                <iframe 
-                    class="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/G2fqAlgmoPo" 
-                    title="What is HTML and CSS?" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-
-            <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
-                <h3 class="text-xl font-semibold mb-3 text-green-400">Test Your Knowledge</h3>
-                <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
-                   class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
-                   target="_blank">
-                    Start Test via WhatsApp Group
-                </a>
-            </div>
-        </div>
-
-        <div class="mb-12 border-b border-green-800 pb-8">
-            <h3 class="text-2xl font-semibold mb-4 text-green-200">3. Video Lesson: JavaScript Basics</h3>
-            
-            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl mb-6">
-                <iframe 
-                    class="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/KWarqNq195M" 
-                    title="JavaScript Basics" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-
-            <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
-                <h3 class="text-xl font-semibold mb-3 text-green-400">Test Your Knowledge</h3>
-                <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
-                   class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
-                   target="_blank">
-                    Start Test via WhatsApp Group
-                </a>
-            </div>
-        </div>
-
-        <div class="mb-12 border-b border-green-800 pb-8">
-            <h3 class="text-2xl font-semibold mb-4 text-green-200">4. Playlist: Introduction to Coding (Google Digital Garage)</h3>
-            
-            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl mb-6">
-                <iframe 
-                    class="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/videoseries?list=PLBgogxgQVM9sGgpcBVYatuq67aGjW8wYJ" 
-                    title="Introduction to Coding Playlist" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-
-            <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
-                <h3 class="text-xl font-semibold mb-3 text-green-400">Test Your Knowledge</h3>
-                <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
-                   class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
-                   target="_blank">
-                    Start Test via WhatsApp Group
-                </a>
-            </div>
-        </div>
-
-        <div class="mb-12 border-b border-green-800 pb-8">
-            <h3 class="text-2xl font-semibold mb-4 text-green-200">5. Playlist: Introduction to UX Design (Google Digital Garage)</h3>
-            
-            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl mb-6">
-                <iframe 
-                    class="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/videoseries?list=PLBgogxgQVM9tcNYUyRL2jvFNm7jsYlyPv" 
-                    title="Introduction to UX Design Playlist" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-
-            <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
-                <h3 class="text-xl font-semibold mb-3 text-green-400">Test Your Knowledge</h3>
-                <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
-                   class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
-                   target="_blank">
-                    Start Test via WhatsApp Group
-                </a>
-            </div>
-        </div>
-
-        <div class="mb-4">
-            <h3 class="text-2xl font-semibold mb-4 text-green-200">6. Playlist: Digital Marketing (Google Digital Garage)</h3>
-            
-            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl mb-6">
-                <iframe 
-                    class="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/videoseries?list=PLBgogxgQVM9sl-KnKywVEhkb3QtLHU4OK" 
-                    title="Digital Marketing Playlist" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-
-            <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
-                <h3 class="text-xl font-semibold mb-3 text-green-400">Test Your Knowledge</h3>
-                <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
-                   class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
-                   target="_blank">
-                    Start Test via WhatsApp Group
-                </a>
-            </div>
-        </div>
-
+        </transition>
     </div>
-  </div>
-  <div id="cisco-courses-section" class="max-w-7xl mx-auto px-4 py-12">
-    <div class="bg-black bg-opacity-70 p-8 md:p-10 rounded-xl shadow-2xl border border-green-700">
-        
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-10 text-green-300 border-b pb-4 border-green-700">
-            Welcome To Cisco Courses
-        </h2>
+  </section>
 
-        <div class="flex justify-center mb-12">
-            <img 
-              src="./images/cisco.jpg" 
-              onerror="this.onerror=null; this.src='https://placehold.co/1024x200/003C6E/FFFFFF?text=Cisco+Courses+Banner';"
-              alt="Cisco Courses Placeholder" 
-              class="w-full max-w-4xl rounded-xl shadow-xl border border-blue-500 object-cover h-32 md:h-48"
-            >
-        </div>
-
-        <div class="mb-12 border-b border-green-800 pb-8">
-            <h3 class="text-2xl font-semibold mb-4 text-green-200">1. Video Lesson: Introduction to Networking</h3>
-            
-            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl mb-6">
-                <iframe 
-                    class="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/NJV_K5nBrkE" 
-                    title="Introduction to Networking" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
+  <footer class="text-sm text-gray-300 bg-black bg-opacity-60 py-8 backdrop-blur-md border-t border-green-600">
+    <div class="max-w-7xl mx-auto px-4 text-center md:text-left">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-green-700 pb-6 mb-6">
+            <div>
+                <h4 class="text-lg font-bold text-green-300 mb-3 border-b border-green-800">Navigation</h4>
+                <ul class="space-y-1">
+                    <li><a href="index.html" class="hover:text-green-400">Home</a></li>
+                    <li><a href="iLearning.html" class="hover:text-green-400">iLearning</a></li>
+                    <li><a href="contact.html" class="hover:text-green-400">Contact</a></li>
+                </ul>
             </div>
-
-            <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
-                <h3 class="text-xl font-semibold mb-3 text-green-400">Test Your Knowledge</h3>
-                <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
-                   class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
-                   target="_blank">
-                    Start Test via WhatsApp Group
-                </a>
+            <div>
+                <h4 class="text-lg font-bold text-green-300 mb-3 border-b border-green-800">Resources</h4>
+                <ul class="space-y-1">
+                    <li><a href="#" class="hover:text-green-400">Support</a></li>
+                    <li><a href="#" class="hover:text-green-400">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold text-green-300 mb-3 border-b border-green-800">Contact</h4>
+                <ul class="space-y-1">
+                    <li>greenslstudio1@gmail.com</li>
+                    <li>+231 881 936 822</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold text-green-300 mb-3 border-b border-green-800">Connect</h4>
+                <div class="space-x-4 mt-2">
+                    <a href="#"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="https://www.facebook.com/share/1FuL11fNyU/"><i class="fab fa-facebook text-xl"></i></a>
+                </div>
             </div>
         </div>
-
-        <div class="mb-12 border-b border-green-800 pb-8">
-            <h3 class="text-2xl font-semibold mb-4 text-green-200">2. Video Lesson: Cybersecurity Essentials</h3>
-            
-            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl mb-6">
-                <iframe 
-                    class="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/uaT5qcrQNns" 
-                    title="Cybersecurity Essentials" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-
-            <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
-                <h3 class="text-xl font-semibold mb-3 text-green-400">Test Your Knowledge</h3>
-                <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
-                   class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
-                   target="_blank">
-                    Start Test via WhatsApp Group
-                </a>
-            </div>
-        </div>
-
-        <div class="mb-4">
-            <h3 class="text-2xl font-semibold mb-4 text-green-200">3. Video Lesson: Packet Tracer Introduction</h3>
-            
-            <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl mb-6">
-                <iframe 
-                    class="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/PNZze0dYRE" 
-                    title="Packet Tracer Introduction" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-
-            <div class="text-center bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-600">
-                <h3 class="text-xl font-semibold mb-3 text-green-400">Test Your Knowledge</h3>
-                <a href="https://chat.whatsapp.com/Ipb6qdGo9B1I8zMilQ0UOa?mode=wwt" 
-                   class="inline-flex items-center justify-center px-8 py-3 bg-green-500 text-black font-extrabold rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105" 
-                   target="_blank">
-                    Start Test via WhatsApp Group
-                </a>
-            </div>
-        </div>
-
-    </div>
-  </div>
-  
-
-  <footer class="text-center text-sm text-gray-300 bg-black bg-opacity-60 py-8 backdrop-blur-md border-t border-green-600">
-    <p>&copy; 2025 GreenStudio | kob ai. All rights reserved.</p>
-    <div class="mt-4 space-x-4">
-        <a href="#" class="hover:text-green-400"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="hover:text-green-400"><i class="fab fa-facebook"></i></a>
-        <a href="#" class="hover:text-green-400"><i class="fab fa-instagram"></i></a>
+        <p>© 2024 GreenStudio. All Rights Reserved.</p>
     </div>
   </footer>
-  
-<script>
 
+  <script>
     const { createApp } = Vue;
-
     createApp({
       data() {
         return {
           menuOpen: false,
-          // Slides for the new demo section (first 6 images)
-          limitedSlides: [
-            { type: 'image', src: './images/j.jpg' }, 
-            { type: 'image', src: './images/dembo.jpg' },
-            { type: 'image', src: './images/i.jpg' },
-            { type: 'image', src: './images/g.jpg' },
-            { type: 'image', src: './images/h.jpg' },
-            { type: 'image', src: './images/bbbb.jpg' },
-          ],
-          currentDemoSlide: 0,
-          showDescription: false, // State for the new description toggle
-        };
-      },
-      methods: {
-        nextDemoSlide() {
-          this.currentDemoSlide = (this.currentDemoSlide + 1) % this.limitedSlides.length;
-        },
-        prevDemoSlide() {
-          this.currentDemoSlide = (this.currentDemoSlide - 1 + this.limitedSlides.length) % this.limitedSlides.length;
-        },
+          showGoogle: false,
+          showCisco: false,
+          currentSlide: 0,
+          slides: [
+            { src: './images/is.jpg' },
+            { src: './images/ilib.jpg' },
+            { src: './images/gskills.jpg' },
+            { src: './images/mi.png' },
+            { src: './images/i.jpg' },
+            { src: './images/j.jpg' }
+          ]
+        }
       },
       mounted() {
-        // Auto-advance the new slideshow every 6 seconds
-        setInterval(this.nextDemoSlide, 6000); 
+        setInterval(() => {
+          this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+        }, 5000);
       }
     }).mount('#app');
-</script>
+  </script>
 </body>
 </html>
